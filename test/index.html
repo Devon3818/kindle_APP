@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<script type="text/javascript" src="base.js"></script>
+	</head>
+
+	<body>
+
+		<script>
+			//AGsBAP8=	36.3
+
+			//YB	35.8
+			//ACgBAP8=		29.6
+
+			var ooo = bases.fromBase("AGYBAP8=", '64');
+			var bases16 = bases.toBase(ooo, 16);
+			alert(bases16);
+
+			var type = bases16.substr(2, 2) + '';
+			var num = bases16.substr(0, 2) + '';
+
+			alert(type);
+			alert(num);
+
+			var n = type.substr(1, 1);
+			if(n > 0) {
+				var ooo = bases.fromBase(num, '16');
+				var R_WENDU = (parseInt(bases.toBase(ooo, 10)) + (256 * n)) / 10;
+
+				alert(R_WENDU);
+			}
+		</script>
+
+	</body>
+
+</html>
