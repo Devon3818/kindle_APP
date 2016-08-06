@@ -1,5 +1,5 @@
 angular.module('App')
-.controller('ReservationController', function ($scope) {
+.controller('BabyWeightController', function ($scope) {
   $scope.reservation = {
     checkin: new Date(),
     checkout: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
@@ -8,7 +8,7 @@ angular.module('App')
     wifi: 'resortwifi'
   };
   $scope.load = function(){
-  	alert(54545);
+  	
   }
   $scope.load();
 });

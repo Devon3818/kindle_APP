@@ -10,17 +10,22 @@ angular.module('App', ['ionic'])
     .state('BabyWeight', {
       url: '/BabyWeight',
       controller: 'BabyWeightController',
-      templateUrl: 'views/BabyWeight/BabyWeight.html'
+      templateUrl: 'views/babyWeight/babyWeight.html'
     })
-    .state('weather', {
-      url: '/weather',
-      controller: 'WeatherController',
-      templateUrl: 'views/weather/weather.html'
+    .state('AdultWeight', {
+      url: '/AdultWeight',
+      controller: 'AdultWeightController',
+      templateUrl: 'views/adultWeight/adultWeight.html'
     })
-    .state('restaurants', {
-      url: '/restaurants',
-      controller: 'RestaurantsController',
-      templateUrl: 'views/restaurants/restaurants.html'
+    .state('Temperature', {
+      url: '/Temperature',
+      controller: 'TemperatureController',
+      templateUrl: 'views/temperature/temperature.html'
+    })
+    .state('Blood', {
+      url: '/Blood',
+      controller: 'BloodController',
+      templateUrl: 'views/blood/blood.html'
     })
     .state('tour', {
       url: '/tour',
@@ -33,8 +38,10 @@ angular.module('App', ['ionic'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
+  	
     if(window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+      
     }
     if(window.StatusBar) {
       StatusBar.styleDefault();
