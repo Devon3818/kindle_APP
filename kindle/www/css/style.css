@@ -1,3 +1,21 @@
-.bar-header,.title-center { text-align: center;}
+
+.dv_clear:after { content: ' '; display: block; clear: both;}
+.dv_fl { float: left;}
+.dv_fr { float: right;}
+
+
+.bar-header,.title-center { text-align: center; !important}
 .menu_divs { text-align: center; width: 100%; padding-top: 50px; height: 200px; background: #f9f9f9;}
 .menu_divs img { display: block; width: 50%; margin: 0 auto 30px;}
+
+
+
+.Equipment_header { margin-bottom: 10px;}
+.Equipment_icon { display: block; float: left; width: 15%; margin: 5%;}
+.Equipment_cont p { font-size: 120px; height: 200px; display: block; line-height: 200px; text-align: center; color: #0A9DC7;}
+.blood_cont { padding-bottom: 16px;}
+.blood_cont p { text-align: center; font-size: 60px; line-height: 68px; color: #0A9DC7;}
+
+.c_icon { display: block; float: right; width: 15%; margin: 5%;}
+.dv_buttons { width: 96%; position: fixed; bottom: 0; left: 2%; margin: 0 auto; padding-top: 10px;}
+.ble_wait { text-align: center; color: #0A9DC7;}
