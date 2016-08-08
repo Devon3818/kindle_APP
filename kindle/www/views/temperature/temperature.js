@@ -92,7 +92,7 @@ angular.module('App')
 					$scope.$apply(function() {
 						$scope.isConnect = "Connected";
 						$scope.ble_discover(address);
-						//$scope.address = address;
+						$scope.address = address;
 					});
 				} else if(status["status"] == "disconnected") {
 
@@ -213,5 +213,24 @@ angular.module('App')
 
 		}
 
-		$scope.load();
+		//页面准备离开时触发事件
+		$scope.$on("$ionicView.beforeLeave", function(event, data) {
+			bluetoothle.stopScan(function(status) {}, function(status) {});
+			if($scope.address) {
+				bluetoothle.close(function(status) {}, function(status) {}, {
+					"address": $scope.address
+				});
+			}
+
+		});
+
+		//页面进入完成时触发事件
+		$scope.$on("$ionicView.afterEnter", function(event, data) {
+			$scope.$apply(function() {
+				$scope.address = false;
+				$scope.load();
+			});
+
+		});
+
 	});

@@ -1,14 +1,19 @@
 angular.module('App')
-.controller('AdultWeightController', function ($scope) {
-  $scope.reservation = {
-    checkin: new Date(),
-    checkout: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
-    room: 156,
-    rate: 121,
-    wifi: 'resortwifi'
-  };
-  $scope.load = function(){
-  	
-  }
-  $scope.load();
-});
+	.controller('AdultWeightController', function($scope) {
+
+		$scope.load = function() {
+
+		}
+		$scope.load();
+		
+		$scope.$on("$ionicView.beforeLeave", function(event, data){
+		   // handle event
+		   alert("State Params: ", data.stateParams);
+		});
+		
+		$scope.$on("$ionicView.afterEnter", function(event, data){
+		   // handle event
+		   alert("$ionicView.afterEnter: ", data.stateParams);
+		});
+		
+	});
