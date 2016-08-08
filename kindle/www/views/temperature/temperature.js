@@ -1,34 +1,16 @@
 angular.module('App')
 	.controller('TemperatureController', function($scope) {
 		$scope.Resuly = '00.0';
-		$scope.isConnect = 'startScan';
+		$scope.isConnect = 'StartScan';
+		$scope.address = false;
 
 		//初始化蓝牙
 		$scope.ble_initialize = function() {
 			bluetoothle.initialize(function(status) {
 				if(status["status"] == "enabled") {
 
-					//====================
-					bluetoothle.requestPermission(function(status) {
+					$scope.ble_startScan();
 
-						if(status["requestPermission"] == true) {
-							//alert("requestPermission ok");
-
-							bluetoothle.requestLocation(function(status) {
-								if(status["requestLocation"] == true) {
-									//alert("requestLocation ok");
-									$scope.ble_startScan();
-								}
-							}, function() {
-								alert("requestLocation no");
-							});
-
-						}
-
-					}, function() {
-						alert("requestPermission no");
-					});
-					//=============
 				} else {
 					alert("未开启蓝牙");
 				}
@@ -39,43 +21,52 @@ angular.module('App')
 			});
 		};
 
+		//
+		$scope.ble_hasPermission = function() {
+			bluetoothle.hasPermission(function(status) {
+				if(status["hasPermission"] == false) {
+
+					$scope.ble_requestPermission();
+				} else {
+					$scope.ble_isInitialized();
+
+				}
+			});
+		}
+
+		$scope.ble_requestPermission = function() {
+			bluetoothle.requestPermission(function(status) {
+
+				if(status["requestPermission"] == true) {
+					//alert("requestPermission ok");
+					$scope.ble_isInitialized();
+				} else {
+					alert("权限不足，蓝牙功能受限");
+				}
+
+			}, function() {
+				alert("requestPermission no");
+			});
+		}
+
 		//扫描蓝牙设备
 		$scope.ble_startScan = function() {
+
 			bluetoothle.startScan(function(status) {
 				//alert(JSON.stringify(status));
 				if(status["status"] == "scanResult") {
+
 					if(status["name"] == "Tem BH") {
-						bluetoothle.stopScan(function(status) {}, function(status) {});
 						var address = status["address"];
-						bluetoothle.connect(function(status) {
-							//alert("连接成功");
+						bluetoothle.stopScan(function(status) {
 							//alert(JSON.stringify(status));
 
-							$scope.$apply(function() {
-								$scope.isConnect = "Is Connect";
-							});
+							$scope.ble_connect(address);
 
-							bluetoothle.discover(function(status) {
-								//alert(JSON.stringify(status));
-								bluetoothle.subscribe(function(status) {
-									if(status["status"] == "subscribedResult") {
-										//alert(JSON.stringify(status));
-										$scope.decoding(status["value"]);
-									}
-								}, function(status) {}, {
-									"address": address,
-									"service": "00001809-0000-1000-8000-00805f9b34fb",
-									"characteristic": "00002a1c-0000-1000-8000-00805f9b34fb",
-								});
-
-							}, function(status) {}, {
-								"address": address
-							});
 						}, function(status) {
-							alert("连接失败");
-						}, {
-							"address": address
+							alert("停止扫描报错");
 						});
+
 					}
 				}
 
@@ -91,18 +82,93 @@ angular.module('App')
 			});
 		};
 
-		$scope.load = function() {
+		//
+		$scope.ble_connect = function(address) {
+			bluetoothle.connect(function(status) {
+				//alert("连接成功");
 
+				if(status["status"] == "connected") {
+
+					$scope.$apply(function() {
+						$scope.isConnect = "Connected";
+						$scope.ble_discover(address);
+						//$scope.address = address;
+					});
+				} else if(status["status"] == "disconnected") {
+
+					bluetoothle.close(function(status) {
+						//alert(JSON.stringify(status));
+						if(status["status"] == "closed") {
+							$scope.$apply(function() {
+								$scope.isConnect = "StartScan";
+								$scope.ble_startScan();
+							});
+						}
+					}, function(status) {
+						alert("close：" + JSON.stringify(status));
+					}, {
+						"address": address
+					});
+
+				}
+
+			}, function(status) {
+				alert("连接失败" + JSON.stringify(status));
+			}, {
+				"address": address
+			});
+		}
+
+		//
+		$scope.ble_discover = function(address) {
+			bluetoothle.discover(function(status) {
+				//alert("ble_discover" + JSON.stringify(status));
+				setTimeout(function() {
+					$scope.ble_subscribe(address);
+				}, 250);
+
+			}, function(status) {
+				alert("ble_discover" + JSON.stringify(status));
+			}, {
+				"address": address
+			});
+		}
+
+		//
+		$scope.ble_subscribe = function(address) {
+			bluetoothle.subscribe(function(status) {
+				if(status["status"] == "subscribedResult") {
+					//alert(JSON.stringify(status));
+					$scope.decoding(status["value"]);
+				}
+			}, function(status) {
+				//alert("subscribe：" + JSON.stringify(status));
+			}, {
+				"address": address,
+				"service": "00001809-0000-1000-8000-00805f9b34fb",
+				"characteristic": "00002a1c-0000-1000-8000-00805f9b34fb",
+			});
+		}
+
+		//
+		$scope.ble_isInitialized = function() {
 			bluetoothle.isInitialized(function(status) {
 
 				//alert(status);
 				if(status["isInitialized"]) {
-					$scope.ble_initialize();
+					//alert("蓝牙已初始化");
+					$scope.ble_startScan();
 				} else {
+					//alert("蓝牙未初始化");
 					$scope.ble_initialize();
 				}
 
 			});
+		}
+
+		$scope.load = function() {
+
+			$scope.ble_hasPermission();
 
 		};
 
