@@ -17,12 +17,13 @@
 		<!-- ionic/angularjs js -->
 		<script src="lib/ionic/js/ionic.bundle.js"></script>
 
+		<script src="lib/ngCordova/dist/ng-cordova.js"></script>
 		<!-- cordova script (this will be a 404 during development) -->
 		<script src="cordova.js"></script>
 
 		<!-- your app's js -->
 		<script src="js/app.js"></script>
-		
+
 		<script src="js/Bluetooth.js"></script>
 		<script src="js/base.js"></script>
 		<script src="views/home/home.js"></script>
@@ -30,9 +31,8 @@
 		<script src="views/adultWeight/adultWeight.js"></script>
 		<script src="views/temperature/temperature.js"></script>
 		<script src="views/blood/blood.js"></script>
-		
-		
-		
+
+		<script src="lib/ngCordova/dist/ng-cordova.js"></script>
 	</head>
 
 	<body ng-app="App">
@@ -40,6 +40,53 @@
 		<ion-side-menus>
 			<!-- Left menu -->
 			<ion-side-menu side="left">
+				
+				<div class="list">
+
+    <a class="item item-avatar" href="#">
+      <img src="img/user.png">
+      <h2>Devon</h2>
+      <p>Man 170cm</p>
+    </a>
+
+</div>
+				
+				
+				<div class="list">
+
+					<a href="#" class="item item-icon-left">
+						<i class="icon ion-home"></i>Adult weight History
+					</a>
+
+					<a href="#" class="item item-icon-left">
+						<i class="icon ion-ios-telephone"></i>Baby weight History
+					</a>
+
+					<a href="#" class="item item-icon-left">
+						<i class="icon ion-wifi"></i>Blood pressure History
+					</a>
+
+					<a href="#" class="item item-icon-left">
+						<i class="icon ion-card"></i>Temperature History
+					</a>
+					
+					<a class="item item-icon-left" href="#">
+					    <i class="icon ion-mic-a"></i>
+					    version
+					    <span class="item-note">
+					      1.0.0
+					    </span>
+					  </a>
+					  <a class="item item-icon-left" href="#">
+					    <i class="icon ion-mic-a"></i>
+					    Help
+					    <span class="item-note">
+					      ->
+					    </span>
+					  </a>
+
+				</div>
+
 			</ion-side-menu>
 
 			<ion-side-menu-content>
@@ -57,6 +104,7 @@
 
 			<!-- Right menu -->
 			<ion-side-menu side="right">
+
 			</ion-side-menu>
 
 		</ion-side-menus>
