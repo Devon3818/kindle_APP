@@ -1,5 +1,5 @@
 angular.module('App')
-	.controller('BabyWeightController', function($scope) {
+	.controller('BabyWeightCtrl', function($scope) {
 
 		$scope.Resuly = '00.000';
 		$scope.isConnect = 'StartScan';
@@ -189,24 +189,19 @@ angular.module('App')
 
 		}
 
-		//页面准备离开时触发事件
-		$scope.$on("$ionicView.beforeLeave", function(event, data) {
+		//控制器消除事件
+		$scope.$on('$destroy', function() {
+			//alert("$destroy");
 			bluetoothle.stopScan(function(status) {}, function(status) {});
 			if($scope.address) {
 				bluetoothle.close(function(status) {}, function(status) {}, {
 					"address": $scope.address
 				});
 			}
-
 		});
 
 		//页面进入完成时触发事件
-		$scope.$on("$ionicView.afterEnter", function(event, data) {
-			$scope.$apply(function() {
-				$scope.address = false;
-				$scope.load();
-			});
-
-		});
+		//$scope.address = false;
+		$scope.load();
 
 	});

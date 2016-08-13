@@ -1,5 +1,7 @@
 angular.module('App')
-	.controller('AdultWeightController', function($scope) {
+	.controller('AdultWeightCtrl', function($scope) {
+
+		//alert(userFactory.name);
 
 		$scope.Resuly = '00.000';
 		$scope.isConnect = 'StartScan';
@@ -57,7 +59,7 @@ angular.module('App')
 				//alert(JSON.stringify(status));
 				if(status["status"] == "scanResult") {
 
-					if( status["name"] == "Health-center" || status["name"] == "Health-center-SC" ) {
+					if(status["name"] == "Health-center" || status["name"] == "Health-center-SC") {
 						var address = status["address"];
 						bluetoothle.stopScan(function(status) {
 							//alert(JSON.stringify(status));
@@ -180,7 +182,7 @@ angular.module('App')
 
 				str = bases16.substr(4, 4) + '',
 				Result = (parseInt(bases.toBase(str, 10))) / 10;
-				//Result_BMI = Result / (height * height) * 10000;
+			//Result_BMI = Result / (height * height) * 10000;
 
 			$scope.$apply(function() {
 				$scope.Resuly = Result;
@@ -188,24 +190,19 @@ angular.module('App')
 
 		}
 
-		//页面准备离开时触发事件
-		$scope.$on("$ionicView.beforeLeave", function(event, data) {
+		//控制器消除事件
+		$scope.$on('$destroy', function() {
+			//alert("$destroy");
 			bluetoothle.stopScan(function(status) {}, function(status) {});
 			if($scope.address) {
 				bluetoothle.close(function(status) {}, function(status) {}, {
 					"address": $scope.address
 				});
 			}
-
 		});
 
 		//页面进入完成时触发事件
-		$scope.$on("$ionicView.afterEnter", function(event, data) {
-			$scope.$apply(function() {
-				$scope.address = false;
-				$scope.load();
-			});
-
-		});
+		//$scope.address = false;
+		$scope.load();
 
 	});

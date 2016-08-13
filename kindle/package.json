@@ -1,7 +1,7 @@
 {
-  "name": "chapter4",
+  "name": "ionic-in-action-demo",
   "version": "1.0.0",
-  "description": "chapter4: An Ionic project",
+  "description": "Ionic in Action Demo",
   "dependencies": {
     "gulp": "^3.5.6",
     "gulp-sass": "^0.7.1",
@@ -16,7 +16,6 @@
   },
   "cordovaPlugins": [],
   "cordovaPlatforms": [
-    "android",
-    "ios"
+    "android"
   ]
 }

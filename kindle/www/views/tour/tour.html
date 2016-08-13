@@ -1,19 +1,22 @@
-<ion-view view-title="Welcome to Aloha Resort" id="tour-view">
-  <ion-nav-buttons side="right">
-    <a class="button button-clear" href="#/home" nav-clear>2Start</a>
+<ion-view title="Welcome" class="tour">
+  <ion-nav-buttons side="left">
   </ion-nav-buttons>
-  <ion-slide-box show-pager="true">
+  <ion-slide-box>
     <ion-slide>
-      <span class="icon icon-slide ion-document-text"></span>
-      <h3>See your reservation</h3>
+      <img src="img/logo.jpg" />
+      <h2>Welcome to<br />Sunshine Resort</h2>
     </ion-slide>
     <ion-slide>
-      <span class="icon icon-slide ion-fork"></span>
-      <h3>Find local restaurants</h3>
+      <h3>View your reservation</h3>
+      <h3>Call the concierge</h3>
+      <h3>Order room service</h3>
+      <h3>Discover resort events</h3>
+      <h3>Find local places</h3>
+      <h3>and much more!</h3>
     </ion-slide>
     <ion-slide>
-      <span class="icon icon-slide ion-ios-sunny"></span>
-      <h3>Get the weather</h3>
+      <img src="img/logo.jpg" />
+      <button class="button button-full button-positive" ng-click="login()">Get Started</button>
     </ion-slide>
   </ion-slide-box>
 </ion-view>

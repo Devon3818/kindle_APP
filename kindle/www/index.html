@@ -1,114 +1,76 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
 
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-		<title></title>
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
 
-		<link href="lib/ionic/css/ionic.css" rel="stylesheet">
-		<link href="css/style.css" rel="stylesheet">
-		<link href="views/tour/tour.css" rel="stylesheet">
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
 
-		<!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
-    <link href="css/ionic.app.css" rel="stylesheet">
-    -->
+    <!-- firebase -->
+    <script src="lib/firebase/firebase.js"></script>
+    <script src="lib/angularfire/dist/angularfire.js"></script>
 
-		<!-- ionic/angularjs js -->
-		<script src="lib/ionic/js/ionic.bundle.js"></script>
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
 
-		<script src="lib/ngCordova/dist/ng-cordova.js"></script>
-		<!-- cordova script (this will be a 404 during development) -->
-		<script src="cordova.js"></script>
+    <!-- your app's js -->
+    <script src="js/app.js"></script>
+    <script src="js/base.js"></script>
+    <script src="views/events/events.js"></script>
+    <script src="views/food/food.js"></script>
+    <script src="views/home/home.js"></script>
+    <script src="views/reservation/reservation.js"></script>
+    <script src="views/tour/tour.js"></script>
+    <script src="views/weather/weather.js"></script>
+    
+    <script src="views/babyWeight/babyWeight.js"></script>
+	<script src="views/adultWeight/adultWeight.js"></script>
+	<script src="views/temperature/temperature.js"></script>
+	<script src="views/blood/blood.js"></script>
+	
+	<script src="views/babyWeight/babyWeightHis.js"></script>
+	<script src="views/adultWeight/adultWeightHis.js"></script>
+	<script src="views/temperature/temperatureHis.js"></script>
+	<script src="views/blood/bloodHis.js"></script>
+	
+  </head>
+  <body ng-app="App">
 
-		<!-- your app's js -->
-		<script src="js/app.js"></script>
-
-		<script src="js/Bluetooth.js"></script>
-		<script src="js/base.js"></script>
-		<script src="views/home/home.js"></script>
-		<script src="views/babyWeight/babyWeight.js"></script>
-		<script src="views/adultWeight/adultWeight.js"></script>
-		<script src="views/temperature/temperature.js"></script>
-		<script src="views/blood/blood.js"></script>
-
-		<script src="lib/ngCordova/dist/ng-cordova.js"></script>
-	</head>
-
-	<body ng-app="App">
-
-		<ion-side-menus>
-			<!-- Left menu -->
-			<ion-side-menu side="left">
-				
-				<div class="list">
-
-    <a class="item item-avatar" href="#">
-      <img src="img/user.png">
-      <h2>Devon</h2>
-      <p>Man 170cm</p>
-    </a>
-
-</div>
-				
-				
-				<div class="list">
-
-					<a href="#" class="item item-icon-left">
-						<i class="icon ion-home"></i>Adult weight History
-					</a>
-
-					<a href="#" class="item item-icon-left">
-						<i class="icon ion-ios-telephone"></i>Baby weight History
-					</a>
-
-					<a href="#" class="item item-icon-left">
-						<i class="icon ion-wifi"></i>Blood pressure History
-					</a>
-
-					<a href="#" class="item item-icon-left">
-						<i class="icon ion-card"></i>Temperature History
-					</a>
-					
-					<a class="item item-icon-left" href="#">
-					    <i class="icon ion-mic-a"></i>
-					    version
-					    <span class="item-note">
-					      1.0.0
-					    </span>
-					  </a>
-					  <a class="item item-icon-left" href="#">
-					    <i class="icon ion-mic-a"></i>
-					    Help
-					    <span class="item-note">
-					      ->
-					    </span>
-					  </a>
-
-				</div>
-
-			</ion-side-menu>
-
-			<ion-side-menu-content>
-				<!-- Main content, usually <ion-nav-view> -->
-
-				<ion-nav-bar class="bar-positive">
-					<ion-nav-back-button class="button-clear">
+    <ion-side-menus>
+      <ion-side-menu-content>
+        <ion-nav-bar class="bar-positive nav-title-slide-ios7">
+          <!--<button menu-toggle="left" class="button button-icon icon ion-navicon"></button>-->
+          
+          <ion-nav-back-button class="button-clear">
 						<i class="icon ion-ios-arrow-left"></i> Back
-					</ion-nav-back-button>
-				</ion-nav-bar>
+		</ion-nav-back-button>
+          
+        </ion-nav-bar>
+        <ion-nav-view></ion-nav-view>
+      </ion-side-menu-content>
 
-				<ion-nav-view></ion-nav-view>
+      <ion-side-menu side="left">
+        <ion-header-bar class="bar-dark">
+          <h1 class="title">Sunshine Resort</h1>
+        </ion-header-bar>
+        <ion-content has-header="true">
+          <ion-list>
+            <ion-item href="#/Home" class="item-icon-left" menu-close><i class="icon ion-home"></i> Home</ion-item>
+            <ion-item href="#/AdultWeightHis" class="item-icon-left" menu-close><i class="icon ion-folder"></i> adultWeightHis</ion-item>
+            <ion-item href="#/BabyWeightHis" class="item-icon-left" menu-close><i class="icon ion-ios7-telephone"></i> babyWeightHis</ion-item>
+            <ion-item href="#/BloodHis" class="item-icon-left" menu-close><i class="icon ion-ios7-partlysunny"></i> bloodHis</ion-item>
+            <ion-item href="#/TemperatureHis" class="item-icon-left" menu-close><i class="icon ion-calendar"></i> temperatureHis</ion-item>
+            
+            <ion-item href="#/about" class="item-icon-left" menu-close> <i class="icon ion-ios7-information"></i> About</ion-item>
+          </ion-list>
+        </ion-content>
+      </ion-side-menu>
 
-			</ion-side-menu-content>
-
-			<!-- Right menu -->
-			<ion-side-menu side="right">
-
-			</ion-side-menu>
-
-		</ion-side-menus>
-
-	</body>
-
+    </ion-side-menus>
+  </body>
 </html>

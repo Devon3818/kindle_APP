@@ -1,47 +1,24 @@
-# packaged angular-animate
+# bower-angular-animate
 
-This repo is for distribution on `npm` and `bower`. The source for this module is in the
+This repo is for distribution on `bower`. The source for this module is in the
 [main AngularJS repo](https://github.com/angular/angular.js/tree/master/src/ngAnimate).
 Please file issues and pull requests against that repo.
 
 ## Install
 
-You can install this package either with `npm` or with `bower`.
-
-### npm
-
-```shell
-npm install angular-animate
-```
-
-Add a `<script>` to your `index.html`:
-
-```html
-<script src="/node_modules/angular-animate/angular-animate.js"></script>
-```
-
-Then add `ngAnimate` as a dependency for your app:
-
-```javascript
-angular.module('myApp', ['ngAnimate']);
-```
-
-Note that this package is not in CommonJS format, so doing `require('angular-animate')` will
-return `undefined`.
-
-### bower
+Install with `bower`:
 
 ```shell
 bower install angular-animate
 ```
 
-Then add a `<script>` to your `index.html`:
+Add a `<script>` to your `index.html`:
 
 ```html
 <script src="/bower_components/angular-animate/angular-animate.js"></script>
 ```
 
-Then add `ngAnimate` as a dependency for your app:
+And add `ngAnimate` as a dependency for your app:
 
 ```javascript
 angular.module('myApp', ['ngAnimate']);

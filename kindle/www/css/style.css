@@ -1,3 +1,31 @@
+.tour {
+  background-color: #ffefd6;
+  text-align: center;
+  position: absolute;
+  z-index: 100;
+}
+.tour .slider {
+  height: 100%;
+  padding-top: 80px;
+}
+.tour img {
+  max-height: 70%;
+}
+.comments .button-block {
+  margin: 0;
+}
+.room-service ion-header-bar {
+  margin-top: 44px;
+}
+.room-service ion-content {
+  top: 88px;
+}
+.item.button-block {
+  margin-top: 0;
+  border-radius: 0;
+}
+
+/*===========================================================*/
 
 .dv_clear:after { content: ' '; display: block; clear: both;}
 .dv_fl { float: left;}
@@ -19,3 +47,4 @@
 .c_icon { display: block; float: right; width: 15%; margin: 5%;}
 .dv_buttons { width: 96%; position: fixed; bottom: 0; left: 2%; margin: 0 auto; padding-top: 10px;}
 .ble_wait { text-align: center; color: #0A9DC7;}
+
