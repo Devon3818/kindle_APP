@@ -1,5 +1,5 @@
 angular.module('App')
-	.controller('TemperatureHisCtrl', function($scope) {
+	.controller('TemperatureHisCtrl', function($scope, userHistory) {
 		$(function() {
 
 			setTimeout(function() {
@@ -35,7 +35,8 @@ angular.module('App')
 								return this.value; // clean, unformatted number for year
 							}
 						},
-						categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+						//categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+						categories: userHistory.data[2][1][0]["_Adate"]
 					},
 					yAxis: {
 						title: {
@@ -43,7 +44,7 @@ angular.module('App')
 						},
 						labels: {
 							formatter: function() {
-								return this.value + 'kg';
+								return this.value + '摄氏度';
 							}
 						}
 					},
@@ -53,11 +54,12 @@ angular.module('App')
 
 					series: [{
 						name: 'USA',
-						data: [45, 42, 10, 80, 52, 46, 21, 32, 70, 25, 79, 64]
+						//data: [45, 42, 10, 80, 52, 46, 21, 32, 70, 25, 79, 64]
+						data: userHistory.data[2][1][0]["_Acontent"]
 					}]
 				});
 
-			}, 700);
+			}, 500);
 
 		});
 	});

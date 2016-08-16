@@ -1,5 +1,16 @@
 angular.module('App', ['ionic', 'ngCordova'])
 
+.provider("userHistory", function() {
+	var userHistory = {
+		data		:	null
+	};
+
+	this.$get = function() {
+		return userHistory;
+	}
+
+})
+
 .config(function($stateProvider, $urlRouterProvider) {
 	$stateProvider
 		.state('tour', {
@@ -33,7 +44,7 @@ angular.module('App', ['ionic', 'ngCordova'])
 			templateUrl: 'views/adultWeight/adultWeightHis.html'
 		})
 
-		.state('Temperature', {
+	.state('Temperature', {
 			url: '/Temperature',
 			controller: 'TemperatureCtrl',
 			templateUrl: 'views/temperature/temperature.html'
@@ -44,7 +55,7 @@ angular.module('App', ['ionic', 'ngCordova'])
 			templateUrl: 'views/temperature/temperatureHis.html'
 		})
 
-		.state('Blood', {
+	.state('Blood', {
 			url: '/Blood',
 			controller: 'BloodCtrl',
 			templateUrl: 'views/blood/blood.html'
