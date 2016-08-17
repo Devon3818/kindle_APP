@@ -1,5 +1,6 @@
 angular.module('App', ['ionic', 'ngCordova'])
 
+//历史记录服务
 .provider("userHistory", function() {
 	var userHistory = {
 		data		:	null
@@ -10,6 +11,29 @@ angular.module('App', ['ionic', 'ngCordova'])
 	}
 
 })
+
+//用户数组
+.provider("userArray", function() {
+	
+	var userArray = {
+		users		:	[]
+	};
+	
+	if( !window.localStorage.userArray ){
+		var loU = [];
+		window.localStorage.userArray = JSON.stringify( loU );
+	}else{
+		var loU = JSON.parse( window.localStorage.userArray );
+		userArray.users = loU;
+	}
+	
+
+	this.$get = function() {
+		return userArray;
+	}
+
+})
+
 
 .config(function($stateProvider, $urlRouterProvider) {
 	$stateProvider
@@ -68,6 +92,16 @@ angular.module('App', ['ionic', 'ngCordova'])
 		.state('about', {
 			url: '/about',
 			templateUrl: 'views/about/about.html'
+		})
+		.state('register', {
+			url: '/register',
+			controller: 'RegCtrl',
+			templateUrl: 'views/register/register.html'
+		})
+		.state('login', {
+			url: '/login',
+			controller: 'LogCtrl',
+			templateUrl: 'views/login/login.html'
 		})
 
 	$urlRouterProvider.otherwise('/Home');

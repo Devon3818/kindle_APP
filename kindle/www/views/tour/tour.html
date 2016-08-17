@@ -2,22 +2,18 @@
   <ion-nav-buttons side="left">
   </ion-nav-buttons>
   <ion-slide-box>
-    <ion-slide>
+  	
+    <ion-slide  ng-repeat="x in userList">
       <img class="user_faces" src="img/user.png" />
       <h1 class="title">Devon-1</h1>
       <button style="display: block; width: 70%; margin: 100px auto 0;" class="button button-full button-positive user_faces_login" ng-click="login()">登录</button>
     </ion-slide>
     
     <ion-slide>
-      <img class="user_faces" src="img/user.png" />
+      <img ng-click="login2()" class="user_faces" src="img/user.png" />
       <h1 class="title">Devon-2</h1>
-      <button style="display: block; width: 70%; margin: 100px auto 0;" class="button button-full button-positive user_faces_login" ng-click="login()">登录</button>
-    </ion-slide>
-    
-    <ion-slide>
-      <img class="user_faces" src="img/user.png" />
-      <h1 class="title">Devon-3</h1>
-      <button style="display: block; width: 70%; margin: 100px auto 0;" class="button button-full button-positive user_faces_login" ng-click="login()">登录</button>
+      <button style="display: block; width: 70%; margin: 50px auto 25px;" class="button button-full button-positive user_faces_login" ng-click="login()">登录</button>
+      <button style="display: block; width: 70%; margin: 0 auto;" class="button button-full button-positive user_faces_login" ng-click="register()">注册</button>
     </ion-slide>
     
   </ion-slide-box>
