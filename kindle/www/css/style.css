@@ -48,6 +48,6 @@
 .dv_buttons { width: 96%; position: fixed; bottom: 0; left: 2%; margin: 0 auto; padding-top: 10px;}
 .ble_wait { text-align: center; color: #0A9DC7;}
 
-.user_faces { border-radius: 999999px; overflow: hidden; display: block; width: 50%; margin: 0 auto;}
+.user_faces { border-radius: 999999px; overflow: hidden; display: block; width: 180px; height: 180px; margin: 0 auto;}
 
 

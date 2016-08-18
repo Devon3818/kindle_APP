@@ -1,4 +1,4 @@
-angular.module('App').controller('TourCtrl', function($scope, $location, $ionicPopup, userArray) {
+angular.module('App').controller('TourCtrl', function($scope, $location, userArray) {
 	
 	//用户数组
 	$scope.userList = userArray.users;
@@ -16,28 +16,31 @@ angular.module('App').controller('TourCtrl', function($scope, $location, $ionicP
 	
 	//登录
 	$scope.login = function() {
-
+	
 		//localStorage.setItem('firstVisit', '1');
 		$location.url('/login');
 
 	}
 	
-	$scope.login2 = function() {
-
+	$scope.login2 = function( uid ) {
+		
+		var len = $scope.userList.length;
+		for(var i=0; i<len; i++){
+			if( $scope.userList[i]['id'] == uid ){
+				alert($scope.userList[i]['id']);
+				
+				$("#user_litpic").attr('src',$scope.userList[i]['litpic']);
+				$("#user_name").html($scope.userList[i]['name']);
+				$("#user_sex").html($scope.userList[i]['sex']==0?"Man":"Woman");
+				$("#user_height").html($scope.userList[i]['height']);
+				
+				
+				break;
+			}
+		}
+		
 		//localStorage.setItem('firstVisit', '1');
 		$location.url('/');
-
-		return true;
-
-		$ionicPopup.prompt({
-			title: 'Login',
-			inputPlaceholder: 'Enter reservation code',
-			okText: 'Login'
-		}).then(function(code) {
-			// Login with code
-			localStorage.setItem('firstVisit', '1');
-			$location.url('/');
-		});
 	}
 
 });

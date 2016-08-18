@@ -1,21 +1,21 @@
 <ion-view title="Login">
 
-	<ion-content>
+	<ion-content ng-controller="LogCtrl">
 
 		<div class="list">
 			<label class="item item-input">
 			  <span class="input-label">Username</span>
-			  <input type="text">
+			  <input ng-model="Username" type="text">
 			</label>
 			<label class="item item-input">
 			  <span class="input-label">Password</span>
-			  <input type="password">
+			  <input ng-model="password" type="password">
 			</label>
 			
 
 		</div>
 
-		<button style="display: block; width: 94%; margin: 80px auto 0;" class="button button-full button-positive user_faces_login" ng-click="register()">登录</button>
+		<button style="display: block; width: 94%; margin: 80px auto 0;" class="button button-full button-positive user_faces_login" ng-click="login()">登录</button>
 
 	</ion-content>
 

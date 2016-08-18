@@ -1,5 +1,6 @@
 angular.module('App', ['ionic', 'ngCordova'])
 
+
 //历史记录服务
 .provider("userHistory", function() {
 	var userHistory = {
@@ -198,5 +199,6 @@ angular.module('App', ['ionic', 'ngCordova'])
 
 	$scope.openMenu = function() {
 		$ionicSideMenuDelegate.toggleLeft();
+		
 	};
 });

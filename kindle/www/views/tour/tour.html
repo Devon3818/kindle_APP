@@ -4,9 +4,9 @@
   <ion-slide-box>
   	
     <ion-slide  ng-repeat="x in userList">
-      <img class="user_faces" src="img/user.png" />
-      <h1 class="title">Devon-1</h1>
-      <button style="display: block; width: 70%; margin: 100px auto 0;" class="button button-full button-positive user_faces_login" ng-click="login()">登录</button>
+      <img class="user_faces" src="{{x.litpic}}" />
+      <h1 class="title">{{x.name}}</h1>
+      <button style="display: block; width: 70%; margin: 100px auto 0;" class="button button-full button-positive user_faces_login" ng-click="login2({{x.id}})">登录</button>
     </ion-slide>
     
     <ion-slide>
