@@ -1,9 +1,43 @@
 angular.module('App')
-	.controller('TemperatureCtrl', function($scope) {
+	.controller('TemperatureCtrl', function($scope, $ionicPopup) {
 		$scope.Resuly = '00.0';
 		$scope.isConnect = 'StartScan';
 		$scope.address = false;
+		
+		$scope.show = function() {
 
+			$scope.data = {};
+
+			// 一个精心制作的自定义弹窗
+			var myPopup = $ionicPopup.show({
+				template: '<input type="tel" ng-model="data.his">',
+				title: 'The values of input record',
+				subTitle: 'Please use normal things',
+				scope: $scope,
+				buttons: [{
+					text: 'Cancel',
+
+				}, {
+					text: '<b>Save</b>',
+					type: 'button-positive',
+					onTap: function(e) {
+
+						if(!$scope.data.his) {
+							//don't allow the user to close unless he enters wifi password
+							e.preventDefault();
+						} else {
+							alert($scope.data.his);
+						}
+					}
+				}, ]
+			});
+			myPopup.then(function(res) {
+				//console.log('Tapped!', res);
+			});
+
+		}
+		
+		
 		//初始化蓝牙
 		$scope.ble_initialize = function() {
 			bluetoothle.initialize(function(status) {

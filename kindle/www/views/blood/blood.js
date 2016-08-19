@@ -1,10 +1,46 @@
 angular.module('App')
-	.controller('BloodCtrl', function($scope) {
+	.controller('BloodCtrl', function($scope, $ionicPopup) {
 
 		$scope.Resuly_DY = '000';
 		$scope.isConnect = 'StartScan';
 		$scope.address = false;
+		
+		$scope.show = function() {
 
+			$scope.data = {};
+
+			// 一个精心制作的自定义弹窗
+			var myPopup = $ionicPopup.show({
+				template: '<input type="tel" ng-model="data.his1"><br/><input type="tel" ng-model="data.his2"><br/><input type="tel" ng-model="data.his3">',
+				title: 'The values of input record',
+				subTitle: 'Please use normal things',
+				scope: $scope,
+				buttons: [{
+					text: 'Cancel',
+
+				}, {
+					text: '<b>Save</b>',
+					type: 'button-positive',
+					onTap: function(e) {
+
+						if(!$scope.data.his1 && !$scope.data.his2 && !$scope.data.his3 ) {
+							//don't allow the user to close unless he enters wifi password
+							e.preventDefault();
+						} else {
+							alert($scope.data.his1);
+							alert($scope.data.his2);
+							alert($scope.data.his3);
+							
+						}
+					}
+				}, ]
+			});
+			myPopup.then(function(res) {
+				//console.log('Tapped!', res);
+			});
+
+		}
+		
 		//初始化蓝牙
 		$scope.ble_initialize = function() {
 			bluetoothle.initialize(function(status) {
