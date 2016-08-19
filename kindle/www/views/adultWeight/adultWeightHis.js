@@ -1,5 +1,42 @@
 angular.module('App')
-	.controller('AdultWeightHisCtrl', function($scope, userHistory) {
+	.controller('AdultWeightHisCtrl', function($scope, userHistory, $ionicPopup) {
+		
+		$scope.show = function() {
+
+			$scope.data = {};
+
+			// 一个精心制作的自定义弹窗
+			var myPopup = $ionicPopup.show({
+				template: '<input type="tel" ng-model="data.his1"><br/><input type="tel" ng-model="data.his2">',
+				title: 'The values of input record',
+				subTitle: 'Please use normal things',
+				scope: $scope,
+				buttons: [{
+					text: 'Cancel',
+
+				}, {
+					text: '<b>Save</b>',
+					type: 'button-positive',
+					onTap: function(e) {
+
+						if(!$scope.data.his1 && !$scope.data.his2 ) {
+							//don't allow the user to close unless he enters wifi password
+							e.preventDefault();
+						} else {
+							alert($scope.data.his1);
+							alert($scope.data.his2);
+							
+						}
+					}
+				}, ]
+			});
+			myPopup.then(function(res) {
+				//console.log('Tapped!', res);
+			});
+
+		}
+		
+		
 		$(function() {
 
 			setTimeout(function() {

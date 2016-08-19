@@ -1,5 +1,39 @@
 angular.module('App')
-	.controller('TemperatureHisCtrl', function($scope, userHistory) {
+	.controller('TemperatureHisCtrl', function($scope, userHistory, $ionicPopup) {
+
+		$scope.show = function() {
+
+			$scope.data = {};
+
+			// 一个精心制作的自定义弹窗
+			var myPopup = $ionicPopup.show({
+				template: '<input type="tel" ng-model="data.his">',
+				title: 'The values of input record',
+				subTitle: 'Please use normal things',
+				scope: $scope,
+				buttons: [{
+					text: 'Cancel',
+
+				}, {
+					text: '<b>Save</b>',
+					type: 'button-positive',
+					onTap: function(e) {
+
+						if(!$scope.data.his) {
+							//don't allow the user to close unless he enters wifi password
+							e.preventDefault();
+						} else {
+							alert($scope.data.his);
+						}
+					}
+				}, ]
+			});
+			myPopup.then(function(res) {
+				//console.log('Tapped!', res);
+			});
+
+		}
+
 		$(function() {
 
 			setTimeout(function() {
