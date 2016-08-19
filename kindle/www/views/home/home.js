@@ -95,17 +95,17 @@ angular.module('App').controller('HomeCtrl', function($scope, $cordovaFile, $htt
 	//文件写入
 	$scope.writeF = function() {
 
-		$http.get("http://api.3eat.net/kinleeb/all_his.php?code=kinlee&uid=1")
+		$http.get("http://api.3eat.net/kinleeb/all_his.php?code=kinlee&uid=" + window.localStorage.uid)
 			.success(function(response) {
 				//$scope.names = response.records;
 				var content = JSON.stringify(response);
 
 				//写入文件测试
-				$cordovaFile.writeFile(cordova.file.dataDirectory, "file.txt", content, true)
+				$cordovaFile.writeFile(cordova.file.dataDirectory, "data_"+ window.localStorage.uid +".txt", content, true)
 					.then(function(success) {
 
 						// 读取文件
-						$cordovaFile.readAsText(cordova.file.dataDirectory, "file.txt")
+						$cordovaFile.readAsText(cordova.file.dataDirectory, "data_"+ window.localStorage.uid +".txt")
 							.then(function(success) {
 								// success
 								userHistory.data = JSON.parse(success);

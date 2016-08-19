@@ -1,28 +1,28 @@
 <ion-view title="Register">
 
-	<ion-content>
+	<ion-content ng-controller="RegCtrl">
 
 		<div class="list">
 			<label class="item item-input">
 			  <span class="input-label">Username</span>
-			  <input type="text">
+			  <input ng-model="username" type="text" placeholder="your name">
 			</label>
 			<label class="item item-input">
 			  <span class="input-label">Password</span>
-			  <input type="password">
+			  <input ng-model="password" type="password" placeholder="your password">
 			</label>
 			<label class="item item-input">
 			  <span class="input-label">Height(CM)</span>
-			  <input type="tel">
+			  <input ng-model="height" type="tel" placeholder="your height">
 			</label>
 
 			<label class="item item-input item-select">
 			    <div class="input-label">
 			      Sex
 			    </div>
-			    <select>
+			    <select ng-model="sex">
 			      <option>Man</option>
-			      <option selected>Woman</option>
+			      <option>Woman</option>
 			    </select>
 			  </label>
 

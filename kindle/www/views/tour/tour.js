@@ -27,7 +27,8 @@ angular.module('App').controller('TourCtrl', function($scope, $location, userArr
 		var len = $scope.userList.length;
 		for(var i=0; i<len; i++){
 			if( $scope.userList[i]['id'] == uid ){
-				alert($scope.userList[i]['id']);
+				
+				window.localStorage.uid = uid;
 				
 				$("#user_litpic").attr('src',$scope.userList[i]['litpic']);
 				$("#user_name").html($scope.userList[i]['name']);

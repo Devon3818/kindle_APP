@@ -57,7 +57,7 @@ angular.module('App')
 				//alert(JSON.stringify(status));
 				if(status["status"] == "scanResult") {
 
-					if(status["name"] == "Health-center-BP") {
+					if(status["name"] == "Health-center-BP" || status["name"] == "S-Power" ) {
 						var address = status["address"];
 						bluetoothle.stopScan(function(status) {
 							//alert(JSON.stringify(status));
