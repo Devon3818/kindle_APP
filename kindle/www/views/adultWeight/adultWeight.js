@@ -1,11 +1,39 @@
 angular.module('App')
-	.controller('AdultWeightCtrl', function($scope, $ionicPopup) {
+	.controller('AdultWeightCtrl', function($scope, $ionicPopup, $http) {
 
 		//alert(userFactory.name);
-
+		
+		var uid = window.localStorage.uid;
+		
 		$scope.Resuly = '00.000';
 		$scope.isConnect = 'StartScan';
 		$scope.address = false;
+		
+		
+		//保存
+		$scope.save = function() {
+
+			alert("save");
+			$http.get("http://api.3eat.net/kinleeb/data_cheng_post.php?code=kinlee&bmi=16&uid=" + uid + "&weight=" + $scope.Resuly)
+				.success(function(response) {
+					alert(response);
+					alert(JSON.stringify(response));
+
+					if(response[0]["_postok"] == 1) {
+
+					}
+
+				}).error(function(data) {
+					alert("err");
+				});
+
+		}
+
+		//清除
+		$scope.again = function() {
+			alert("again");
+			$scope.Resuly = '00.000';
+		}
 		
 		
 		$scope.show = function() {
@@ -30,8 +58,9 @@ angular.module('App')
 							//don't allow the user to close unless he enters wifi password
 							e.preventDefault();
 						} else {
-							alert($scope.data.his1);
-							alert($scope.data.his2);
+							//alert($scope.data.his1);
+							//alert($scope.data.his2);
+							$scope.Resuly = $scope.data.his1;
 							
 						}
 					}

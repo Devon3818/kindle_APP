@@ -1,9 +1,36 @@
 angular.module('App')
-	.controller('BloodCtrl', function($scope, $ionicPopup) {
+	.controller('BloodCtrl', function($scope, $ionicPopup, $http) {
 
 		$scope.Resuly_DY = '000';
 		$scope.isConnect = 'StartScan';
 		$scope.address = false;
+		
+		var uid = window.localStorage.uid;
+		
+		//保存
+		$scope.save = function() {
+
+			alert("save");
+			$http.get("http://api.3eat.net/kinleeb/data_xueya_post.php?code=kinlee&uid=" + uid + "&gaoya=100&maibo=99&diya=" + $scope.Resuly_DY)
+				.success(function(response) {
+					alert(response);
+					alert(JSON.stringify(response));
+
+					if(response[0]["_postok"] == 1) {
+
+					}
+
+				}).error(function(data) {
+					alert("err");
+				});
+
+		}
+
+		//清除
+		$scope.again = function() {
+			alert("again");
+			$scope.Resuly_DY = '000';
+		}
 		
 		$scope.show = function() {
 
@@ -30,7 +57,7 @@ angular.module('App')
 							alert($scope.data.his1);
 							alert($scope.data.his2);
 							alert($scope.data.his3);
-							
+							$scope.Resuly_DY = $scope.data.his2;
 						}
 					}
 				}, ]

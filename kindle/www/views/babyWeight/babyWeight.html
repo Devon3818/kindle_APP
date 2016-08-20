@@ -4,7 +4,7 @@
 		<a class="button button-clear" nav-clear ng-click="show();"><i class="icon ion-calendar"></i></a>
 	</ion-nav-buttons>
 	
-	<ion-content ng-controller="BabyWeightCtrl">
+	<ion-content>
 
 		<!--温度顶部-->
 		<header class="dv_clear Equipment_header">
@@ -26,10 +26,10 @@
 
 	</ion-content>
 	<section class="dv_buttons">
-		<button class="button button-block button-balanced activated">
+		<button class="button button-block button-balanced activated" ng-click="save();">
   			Save Data
 		</button>
-		<button class="button button-block button-positive">
+		<button class="button button-block button-positive" ng-click="again();">
   			Start Again
 		</button>
 	</section>

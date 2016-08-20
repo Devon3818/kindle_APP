@@ -1,6 +1,8 @@
 angular.module('App')
-	.controller('BabyWeightHisCtrl', function($scope, userHistory, $ionicPopup) {
-		
+	.controller('BabyWeightHisCtrl', function($scope, userHistory, $ionicPopup, $http) {
+
+		var uid = window.localStorage.uid;
+
 		$scope.show = function() {
 
 			$scope.data = {};
@@ -24,7 +26,20 @@ angular.module('App')
 							e.preventDefault();
 						} else {
 							alert($scope.data.his);
-							
+
+							$http.get("http://api.3eat.net/kinleeb/data_chengbaby_post.php?code=kinlee&uid=" + uid + "&weight=" + $scope.data.his)
+								.success(function(response) {
+									alert(response);
+									alert(JSON.stringify(response));
+
+									if(response[0]["_postok"] == 1) {
+
+									}
+
+								}).error(function(data) {
+									alert("err");
+								});
+
 						}
 					}
 				}, ]
@@ -34,7 +49,7 @@ angular.module('App')
 			});
 
 		}
-		
+
 		$(function() {
 			setTimeout(function() {
 

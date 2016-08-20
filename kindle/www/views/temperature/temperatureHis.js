@@ -1,5 +1,7 @@
 angular.module('App')
-	.controller('TemperatureHisCtrl', function($scope, userHistory, $ionicPopup) {
+	.controller('TemperatureHisCtrl', function($scope, userHistory, $ionicPopup, $http) {
+
+		var uid = window.localStorage.uid;
 
 		$scope.show = function() {
 
@@ -24,6 +26,20 @@ angular.module('App')
 							e.preventDefault();
 						} else {
 							alert($scope.data.his);
+
+							$http.get("http://api.3eat.net/kinleeb/data_tiwen_post.php?code=kinlee&uid=" + uid + "&dushu=" + $scope.data.his)
+								.success(function(response) {
+									alert(response);
+									alert(JSON.stringify(response));
+
+									if(response[0]["_postok"] == 1) {
+
+									}
+
+								}).error(function(data) {
+									alert("err");
+								});
+
 						}
 					}
 				}, ]

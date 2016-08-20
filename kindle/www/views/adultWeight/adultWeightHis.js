@@ -1,6 +1,8 @@
 angular.module('App')
-	.controller('AdultWeightHisCtrl', function($scope, userHistory, $ionicPopup) {
-		
+	.controller('AdultWeightHisCtrl', function($scope, userHistory, $ionicPopup, $http) {
+
+		var uid = window.localStorage.uid;
+
 		$scope.show = function() {
 
 			$scope.data = {};
@@ -19,13 +21,26 @@ angular.module('App')
 					type: 'button-positive',
 					onTap: function(e) {
 
-						if(!$scope.data.his1 && !$scope.data.his2 ) {
+						if(!$scope.data.his1 && !$scope.data.his2) {
 							//don't allow the user to close unless he enters wifi password
 							e.preventDefault();
 						} else {
 							alert($scope.data.his1);
 							alert($scope.data.his2);
-							
+
+							$http.get("http://api.3eat.net/kinleeb/data_cheng_post.php?code=kinlee&bmi=16&uid=" + uid + "&weight=" + $scope.data.his1)
+								.success(function(response) {
+									alert(response);
+									alert(JSON.stringify(response));
+
+									if(response[0]["_postok"] == 1) {
+
+									}
+
+								}).error(function(data) {
+									alert("err");
+								});
+
 						}
 					}
 				}, ]
@@ -35,8 +50,7 @@ angular.module('App')
 			});
 
 		}
-		
-		
+
 		$(function() {
 
 			setTimeout(function() {

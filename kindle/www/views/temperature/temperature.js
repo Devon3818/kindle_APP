@@ -1,9 +1,37 @@
 angular.module('App')
-	.controller('TemperatureCtrl', function($scope, $ionicPopup) {
+	.controller('TemperatureCtrl', function($scope, $ionicPopup, $http) {
+
+		var uid = window.localStorage.uid;
+
 		$scope.Resuly = '00.0';
 		$scope.isConnect = 'StartScan';
 		$scope.address = false;
-		
+
+		//保存
+		$scope.save = function() {
+
+			alert("save");
+			$http.get("http://api.3eat.net/kinleeb/data_tiwen_post.php?code=kinlee&uid=" + uid + "&dushu=" + $scope.Resuly)
+				.success(function(response) {
+					alert(response);
+					alert(JSON.stringify(response));
+
+					if(response[0]["_postok"] == 1) {
+
+					}
+
+				}).error(function(data) {
+					alert("err");
+				});
+
+		}
+
+		//清除
+		$scope.again = function() {
+			alert("again");
+			$scope.Resuly = '00.0';
+		}
+
 		$scope.show = function() {
 
 			$scope.data = {};
@@ -26,7 +54,9 @@ angular.module('App')
 							//don't allow the user to close unless he enters wifi password
 							e.preventDefault();
 						} else {
-							alert($scope.data.his);
+
+							$scope.Resuly = $scope.data.his;
+
 						}
 					}
 				}, ]
@@ -36,8 +66,7 @@ angular.module('App')
 			});
 
 		}
-		
-		
+
 		//初始化蓝牙
 		$scope.ble_initialize = function() {
 			bluetoothle.initialize(function(status) {
@@ -90,7 +119,7 @@ angular.module('App')
 				//alert(JSON.stringify(status));
 				if(status["status"] == "scanResult") {
 
-					if(status["name"] == "Tem BH") {
+					if(status["name"] == "Tem BH" || status["name"] == "Q9") {
 						var address = status["address"];
 						bluetoothle.stopScan(function(status) {
 							//alert(JSON.stringify(status));
@@ -106,6 +135,7 @@ angular.module('App')
 
 			}, function(status) {
 				alert("扫描失败");
+				alert(JSON.stringify(status));
 			}, {
 				"services": [],
 				"allowDuplicates": true,
