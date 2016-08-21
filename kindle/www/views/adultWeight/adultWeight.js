@@ -1,29 +1,32 @@
 angular.module('App')
-	.controller('AdultWeightCtrl', function($scope, $ionicPopup, $http) {
+	.controller('AdultWeightCtrl', function($scope, $ionicPopup, $http, $ionicLoading) {
 
 		//alert(userFactory.name);
-		
-		var uid = window.localStorage.uid;
-		
+
+		var uid = window.localStorage.uid,
+			uheight = window.localStorage.uheight;
+
 		$scope.Resuly = '00.000';
+		$scope.BMI = '00';
 		$scope.isConnect = 'StartScan';
 		$scope.address = false;
-		
-		
+
 		//保存
 		$scope.save = function() {
 
-			alert("save");
-			$http.get("http://api.3eat.net/kinleeb/data_cheng_post.php?code=kinlee&bmi=16&uid=" + uid + "&weight=" + $scope.Resuly)
+			$ionicLoading.show({
+				template: 'Loading...'
+			});
+			
+			$http.get("http://api.3eat.net/kinleeb/data_cheng_post.php?code=kinlee&bmi=" + $scope.BMI + "&uid=" + uid + "&weight=" + $scope.Resuly)
 				.success(function(response) {
-					alert(response);
-					alert(JSON.stringify(response));
 
 					if(response[0]["_postok"] == 1) {
 
 					}
-
+					$ionicLoading.hide();
 				}).error(function(data) {
+					$ionicLoading.hide();
 					alert("err");
 				});
 
@@ -31,18 +34,18 @@ angular.module('App')
 
 		//清除
 		$scope.again = function() {
-			alert("again");
+
 			$scope.Resuly = '00.000';
+			$scope.BMI = '00';
 		}
-		
-		
+
 		$scope.show = function() {
 
 			$scope.data = {};
 
 			// 一个精心制作的自定义弹窗
 			var myPopup = $ionicPopup.show({
-				template: '<input type="tel" ng-model="data.his1"><br/><input type="tel" ng-model="data.his2">',
+				template: '<input type="tel" ng-model="data.his">',
 				title: 'The values of input record',
 				subTitle: 'Please use normal things',
 				scope: $scope,
@@ -54,14 +57,14 @@ angular.module('App')
 					type: 'button-positive',
 					onTap: function(e) {
 
-						if(!$scope.data.his1 && !$scope.data.his2 ) {
+						if(!$scope.data.his) {
 							//don't allow the user to close unless he enters wifi password
 							e.preventDefault();
 						} else {
-							//alert($scope.data.his1);
-							//alert($scope.data.his2);
-							$scope.Resuly = $scope.data.his1;
-							
+
+							$scope.Resuly = $scope.data.his;
+							$scope.BMI = parseInt($scope.data.his / (uheight * uheight) * 10000);
+
 						}
 					}
 				}, ]
@@ -71,7 +74,7 @@ angular.module('App')
 			});
 
 		}
-		
+
 		//初始化蓝牙
 		$scope.ble_initialize = function() {
 			bluetoothle.initialize(function(status) {
@@ -246,11 +249,12 @@ angular.module('App')
 				bases16 = bases.toBase(bases64, 16),
 
 				str = bases16.substr(4, 4) + '',
-				Result = (parseInt(bases.toBase(str, 10))) / 10;
-			//Result_BMI = Result / (height * height) * 10000;
+				Result = (parseInt(bases.toBase(str, 10))) / 10,
+				BMI = Result / (uheight * uheight) * 10000;
 
 			$scope.$apply(function() {
 				$scope.Resuly = Result;
+				$scope.BMI = BMI;
 			});
 
 		}

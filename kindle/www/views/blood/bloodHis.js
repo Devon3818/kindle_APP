@@ -1,5 +1,5 @@
 angular.module('App')
-	.controller('BloodHisCtrl', function($scope, userHistory, $ionicPopup, $http) {
+	.controller('BloodHisCtrl', function($scope, userHistory, $ionicPopup, $http, $ionicLoading) {
 
 		var uid = window.localStorage.uid;
 
@@ -25,20 +25,20 @@ angular.module('App')
 							//don't allow the user to close unless he enters wifi password
 							e.preventDefault();
 						} else {
-							alert($scope.data.his1);
-							alert($scope.data.his2);
-							alert($scope.data.his3);
+							
+							$ionicLoading.show({
+								template: 'Loading...'
+							});
 
-							$http.get("http://api.3eat.net/kinleeb/data_xueya_post.php?code=kinlee&uid=" + uid + "&gaoya=100&maibo=99&diya=" + $scope.data.his2)
+							$http.get("http://api.3eat.net/kinleeb/data_xueya_post.php?code=kinlee&uid=" + uid + "&gaoya=" + $scope.data.his1 + "&maibo=" + $scope.data.his3 + "&diya=" + $scope.data.his2)
 								.success(function(response) {
-									alert(response);
-									alert(JSON.stringify(response));
-
+									
 									if(response[0]["_postok"] == 1) {
 
 									}
-
+									$ionicLoading.hide();
 								}).error(function(data) {
+									$ionicLoading.hide();
 									alert("err");
 								});
 

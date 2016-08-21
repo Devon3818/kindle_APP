@@ -1,7 +1,9 @@
 angular.module('App')
-	.controller('BloodCtrl', function($scope, $ionicPopup, $http) {
+	.controller('BloodCtrl', function($scope, $ionicPopup, $http, $ionicLoading) {
 
 		$scope.Resuly_DY = '000';
+		$scope.Resuly_GY = '000';
+		$scope.Resuly_MB = '000';
 		$scope.isConnect = 'StartScan';
 		$scope.address = false;
 		
@@ -10,17 +12,20 @@ angular.module('App')
 		//保存
 		$scope.save = function() {
 
-			alert("save");
-			$http.get("http://api.3eat.net/kinleeb/data_xueya_post.php?code=kinlee&uid=" + uid + "&gaoya=100&maibo=99&diya=" + $scope.Resuly_DY)
+			$ionicLoading.show({
+				template: 'Loading...'
+			});
+			
+			$http.get("http://api.3eat.net/kinleeb/data_xueya_post.php?code=kinlee&uid=" + uid + "&gaoya=" + $scope.Resuly_GY + "&maibo=" + $scope.Resuly_MB + "&diya=" + $scope.Resuly_DY)
 				.success(function(response) {
-					alert(response);
-					alert(JSON.stringify(response));
+					
 
 					if(response[0]["_postok"] == 1) {
 
 					}
-
+					$ionicLoading.hide();
 				}).error(function(data) {
+					$ionicLoading.hide();
 					alert("err");
 				});
 
@@ -28,8 +33,10 @@ angular.module('App')
 
 		//清除
 		$scope.again = function() {
-			alert("again");
+			
 			$scope.Resuly_DY = '000';
+			$scope.Resuly_GY = '000';
+			$scope.Resuly_MB = '000';
 		}
 		
 		$scope.show = function() {
@@ -54,10 +61,10 @@ angular.module('App')
 							//don't allow the user to close unless he enters wifi password
 							e.preventDefault();
 						} else {
-							alert($scope.data.his1);
-							alert($scope.data.his2);
-							alert($scope.data.his3);
+							
+							$scope.Resuly_GY = $scope.data.his1;
 							$scope.Resuly_DY = $scope.data.his2;
+							$scope.Resuly_MB = $scope.data.his3;
 						}
 					}
 				}, ]
@@ -238,14 +245,68 @@ angular.module('App')
 
 		$scope.decoding = function(value) {
 
-			$scope.$apply(function() {
-				$scope.Resuly_DY = value;
-			});
-
-			return true;
 
 			var bases64 = bases.fromBase(value, '64'),
-				bases16 = bases.toBase(bases64, 16),
+				bases16 = bases.toBase(bases64, 16);
+
+			if (bases16.length < 6) {
+				//正在检查血压
+				
+				var basesA = bases16.substr(2, 2),
+					basesB = bases.fromBase(basesA, '16'),
+					basesC = bases.toBase(basesB, 10);
+				
+				//设置低压
+				$scope.$apply(function() {
+					$scope.Resuly_DY = basesC;
+				});
+				
+			}else{
+				//最终结果
+				
+				var basesA = bases16,
+					basesB = basesA.substr(2, 4),
+					basesC = bases.fromBase(basesB, '16'),
+					basesD = bases.toBase(basesC, 10);
+				
+				//设置高压
+				$scope.$apply(function() {
+					$scope.Resuly_GY = basesD;
+				});
+				
+				
+				var basesA = bases16,
+					basesB = basesA.substr(6, 4),
+					basesC = bases.fromBase(basesB, '16'),
+					basesD = bases.toBase(basesC, 10);
+				
+				//设置低压
+				$scope.$apply(function() {
+					$scope.Resuly_DY = basesD;
+				});
+				
+				var basesA = bases16.substr(-4, 2),
+					basesB = bases.fromBase(basesA, '16'),
+					basesC = bases.toBase(basesB, 10);
+				
+				//设置脉搏
+				$scope.$apply(function() {
+					$scope.Resuly_MB = basesC;
+				});
+				
+				
+			}
+
+
+
+
+
+
+
+
+
+
+
 
 				str = bases16.substr(4, 4) + '',
 				Result = (parseInt(bases.toBase(str, 10))) / 10;

@@ -1,5 +1,5 @@
 angular.module('App')
-	.controller('TemperatureCtrl', function($scope, $ionicPopup, $http) {
+	.controller('TemperatureCtrl', function($scope, $ionicPopup, $http, $ionicLoading) {
 
 		var uid = window.localStorage.uid;
 
@@ -10,7 +10,10 @@ angular.module('App')
 		//保存
 		$scope.save = function() {
 
-			alert("save");
+			$ionicLoading.show({
+				template: 'Loading...'
+			});
+			
 			$http.get("http://api.3eat.net/kinleeb/data_tiwen_post.php?code=kinlee&uid=" + uid + "&dushu=" + $scope.Resuly)
 				.success(function(response) {
 					alert(response);
@@ -19,8 +22,9 @@ angular.module('App')
 					if(response[0]["_postok"] == 1) {
 
 					}
-
+					$ionicLoading.hide();
 				}).error(function(data) {
+					$ionicLoading.hide();
 					alert("err");
 				});
 
@@ -28,7 +32,7 @@ angular.module('App')
 
 		//清除
 		$scope.again = function() {
-			alert("again");
+			
 			$scope.Resuly = '00.0';
 		}
 

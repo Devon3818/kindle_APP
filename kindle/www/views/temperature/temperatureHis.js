@@ -1,5 +1,5 @@
 angular.module('App')
-	.controller('TemperatureHisCtrl', function($scope, userHistory, $ionicPopup, $http) {
+	.controller('TemperatureHisCtrl', function($scope, userHistory, $ionicPopup, $http, $ionicLoading) {
 
 		var uid = window.localStorage.uid;
 
@@ -25,18 +25,20 @@ angular.module('App')
 							//don't allow the user to close unless he enters wifi password
 							e.preventDefault();
 						} else {
-							alert($scope.data.his);
-
+							
+							$ionicLoading.show({
+								template: 'Loading...'
+							});
+							
 							$http.get("http://api.3eat.net/kinleeb/data_tiwen_post.php?code=kinlee&uid=" + uid + "&dushu=" + $scope.data.his)
 								.success(function(response) {
-									alert(response);
-									alert(JSON.stringify(response));
-
+									
 									if(response[0]["_postok"] == 1) {
 
 									}
-
+									$ionicLoading.hide();
 								}).error(function(data) {
+									$ionicLoading.hide();
 									alert("err");
 								});
 

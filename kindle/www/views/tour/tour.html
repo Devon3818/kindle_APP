@@ -5,15 +5,15 @@
   	
     <ion-slide  ng-repeat="x in userList">
       <img class="user_faces" src="{{x.litpic}}" />
-      <h1 class="title">{{x.name}}</h1>
+      <h1 class="title" style="color: #a2a2a2;">{{x.name}}</h1>
       <button style="display: block; width: 70%; margin: 100px auto 0;" class="button button-full button-positive user_faces_login" ng-click="login2({{x.id}})">登录</button>
     </ion-slide>
     
     <ion-slide>
-      <img ng-click="login2()" class="user_faces" src="img/user.png" />
-      <h1 class="title">Devon-2</h1>
-      <button style="display: block; width: 70%; margin: 50px auto 25px;" class="button button-full button-positive user_faces_login" ng-click="login()">登录</button>
-      <button style="display: block; width: 70%; margin: 0 auto;" class="button button-full button-positive user_faces_login" ng-click="register()">注册</button>
+      <img class="user_faces" src="img/logo.jpg" />
+      <h1 class="title" style="color: #a2a2a2;">kindle</h1>
+      <button style="display: block; width: 70%; margin: 50px auto 25px;" class="button button-full button-positive user_faces_login" ng-click="login()">添加用户</button>
+      <button style="display: block; width: 70%; margin: 0 auto;" class="button button-full button-positive user_faces_login" ng-click="register()">用户注册</button>
     </ion-slide>
     
   </ion-slide-box>

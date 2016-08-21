@@ -1,4 +1,6 @@
-angular.module('App').controller('TourCtrl', function($scope, $location, userArray) {
+angular.module('App').controller('TourCtrl', function($scope, $location, userArray, $ionicViewService) {
+	
+	$ionicViewService.clearHistory();
 	
 	//用户数组
 	$scope.userList = userArray.users;
@@ -29,6 +31,9 @@ angular.module('App').controller('TourCtrl', function($scope, $location, userArr
 			if( $scope.userList[i]['id'] == uid ){
 				
 				window.localStorage.uid = uid;
+				window.localStorage.uheight = $scope.userList[i]['height'];
+				window.localStorage.uname = $scope.userList[i]['name'];
+				window.localStorage.usex = $scope.userList[i]['sex'];
 				
 				$("#user_litpic").attr('src',$scope.userList[i]['litpic']);
 				$("#user_name").html($scope.userList[i]['name']);

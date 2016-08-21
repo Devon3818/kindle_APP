@@ -1,0 +1,22 @@
+<ion-view title="UserList">
+	
+	<ion-nav-buttons side="right">
+		<a class="button button-clear" nav-clear ng-click="edit();">Edit</a>
+	</ion-nav-buttons>
+	
+	<ion-content>
+
+		<ion-list show-delete="shouldShowDelete">
+			<ion-item class="item-avatar" ng-repeat="item in userArr" ng-click="showConfirm({{item.id}},0);">
+				<ion-delete-button class="ion-minus-circled" ng-click="showConfirm({{item.id}},1);"></ion-delete-button>
+				<img src="{{item.litpic}}" />
+    				<h2>{{item.name}}</h2>
+    				<p>{{item.sex}} | {{item.height}}cm</p>
+			</ion-item>
+			
+		</ion-list>
+		
+
+	</ion-content>
+
+</ion-view>

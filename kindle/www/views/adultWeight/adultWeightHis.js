@@ -1,7 +1,8 @@
 angular.module('App')
-	.controller('AdultWeightHisCtrl', function($scope, userHistory, $ionicPopup, $http) {
+	.controller('AdultWeightHisCtrl', function($scope, userHistory, $ionicPopup, $http, $ionicLoading) {
 
-		var uid = window.localStorage.uid;
+		var uid = window.localStorage.uid,
+			uheight = window.localStorage.uheight;
 
 		$scope.show = function() {
 
@@ -9,7 +10,7 @@ angular.module('App')
 
 			// 一个精心制作的自定义弹窗
 			var myPopup = $ionicPopup.show({
-				template: '<input type="tel" ng-model="data.his1"><br/><input type="tel" ng-model="data.his2">',
+				template: '<input type="tel" ng-model="data.his">',
 				title: 'The values of input record',
 				subTitle: 'Please use normal things',
 				scope: $scope,
@@ -21,23 +22,26 @@ angular.module('App')
 					type: 'button-positive',
 					onTap: function(e) {
 
-						if(!$scope.data.his1 && !$scope.data.his2) {
+						if(!$scope.data.his) {
 							//don't allow the user to close unless he enters wifi password
 							e.preventDefault();
 						} else {
-							alert($scope.data.his1);
-							alert($scope.data.his2);
+							
+							$ionicLoading.show({
+								template: 'Loading...'
+							});
+							
+							var BMI = parseInt($scope.data.his / (uheight * uheight) * 10000);
 
-							$http.get("http://api.3eat.net/kinleeb/data_cheng_post.php?code=kinlee&bmi=16&uid=" + uid + "&weight=" + $scope.data.his1)
+							$http.get("http://api.3eat.net/kinleeb/data_cheng_post.php?code=kinlee&bmi=" + BMI + "&uid=" + uid + "&weight=" + $scope.data.his)
 								.success(function(response) {
-									alert(response);
-									alert(JSON.stringify(response));
-
+									
 									if(response[0]["_postok"] == 1) {
 
 									}
-
+									$ionicLoading.hide();
 								}).error(function(data) {
+									$ionicLoading.hide();
 									alert("err");
 								});
 

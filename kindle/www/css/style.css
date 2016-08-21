@@ -1,5 +1,5 @@
 .tour {
-  background-color: #ffefd6;
+  background-color: #fff;
   text-align: center;
   position: absolute;
   z-index: 100;
@@ -43,11 +43,12 @@
 .Equipment_cont p { font-size: 120px; height: 200px; display: block; line-height: 200px; text-align: center; color: #0A9DC7;}
 .blood_cont { padding-bottom: 16px;}
 .blood_cont p { text-align: center; font-size: 60px; line-height: 68px; color: #0A9DC7;}
+.Equipment_cont #bmi_p { text-align: center; font-size: 60px; height: 68px; line-height: 68px; color: #0A9DC7;}
 
 .c_icon { display: block; float: right; width: 15%; margin: 5%;}
 .dv_buttons { width: 96%; position: fixed; bottom: 0; left: 2%; margin: 0 auto; padding-top: 10px;}
 .ble_wait { text-align: center; color: #0A9DC7;}
 
-.user_faces { border-radius: 999999px; overflow: hidden; display: block; width: 180px; height: 180px; margin: 0 auto;}
+.user_faces { border-radius: 999999px; overflow: hidden; display: block; width: 150px; height: 150px; border: 6px solid #F1F2F3; margin: 0 auto;}
 
 

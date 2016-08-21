@@ -1,5 +1,5 @@
 angular.module('App')
-	.controller('BabyWeightCtrl', function($scope, $ionicPopup, $http) {
+	.controller('BabyWeightCtrl', function($scope, $ionicPopup, $http, $ionicLoading) {
 
 		$scope.Resuly = '00.000';
 		$scope.isConnect = 'StartScan';
@@ -9,18 +9,21 @@ angular.module('App')
 		
 		//保存
 		$scope.save = function() {
-
-			alert("save");
+			
+			$ionicLoading.show({
+				template: 'Loading...'
+			});
+			
 			$http.get("http://api.3eat.net/kinleeb/data_chengbaby_post.php?code=kinlee&uid=" + uid + "&weight=" + $scope.Resuly)
 				.success(function(response) {
-					alert(response);
-					alert(JSON.stringify(response));
+					
 
 					if(response[0]["_postok"] == 1) {
 
 					}
-
+					$ionicLoading.hide();
 				}).error(function(data) {
+					$ionicLoading.hide();
 					alert("err");
 				});
 
@@ -28,7 +31,7 @@ angular.module('App')
 
 		//清除
 		$scope.again = function() {
-			alert("again");
+			
 			$scope.Resuly = '00.000';
 		}
 		
