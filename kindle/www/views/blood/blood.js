@@ -6,19 +6,18 @@ angular.module('App')
 		$scope.Resuly_MB = '000';
 		$scope.isConnect = 'StartScan';
 		$scope.address = false;
-		
+
 		var uid = window.localStorage.uid;
-		
+
 		//保存
 		$scope.save = function() {
 
 			$ionicLoading.show({
 				template: 'Loading...'
 			});
-			
+
 			$http.get("http://api.3eat.net/kinleeb/data_xueya_post.php?code=kinlee&uid=" + uid + "&gaoya=" + $scope.Resuly_GY + "&maibo=" + $scope.Resuly_MB + "&diya=" + $scope.Resuly_DY)
 				.success(function(response) {
-					
 
 					if(response[0]["_postok"] == 1) {
 
@@ -33,12 +32,12 @@ angular.module('App')
 
 		//清除
 		$scope.again = function() {
-			
+
 			$scope.Resuly_DY = '000';
 			$scope.Resuly_GY = '000';
 			$scope.Resuly_MB = '000';
 		}
-		
+
 		$scope.show = function() {
 
 			$scope.data = {};
@@ -57,11 +56,11 @@ angular.module('App')
 					type: 'button-positive',
 					onTap: function(e) {
 
-						if(!$scope.data.his1 && !$scope.data.his2 && !$scope.data.his3 ) {
+						if(!$scope.data.his1 && !$scope.data.his2 && !$scope.data.his3) {
 							//don't allow the user to close unless he enters wifi password
 							e.preventDefault();
 						} else {
-							
+
 							$scope.Resuly_GY = $scope.data.his1;
 							$scope.Resuly_DY = $scope.data.his2;
 							$scope.Resuly_MB = $scope.data.his3;
@@ -74,7 +73,7 @@ angular.module('App')
 			});
 
 		}
-		
+
 		//初始化蓝牙
 		$scope.ble_initialize = function() {
 			bluetoothle.initialize(function(status) {
@@ -127,7 +126,7 @@ angular.module('App')
 				//alert(JSON.stringify(status));
 				if(status["status"] == "scanResult") {
 
-					if(status["name"] == "Health-center-BP" || status["name"] == "S-Power" ) {
+					if(status["name"] == "Health-center-BP" || status["name"] == "S-Power") {
 						var address = status["address"];
 						bluetoothle.stopScan(function(status) {
 							//alert(JSON.stringify(status));
@@ -245,76 +244,62 @@ angular.module('App')
 
 		$scope.decoding = function(value) {
 
-
 			var bases64 = bases.fromBase(value, '64'),
 				bases16 = bases.toBase(bases64, 16);
 
-			if (bases16.length < 6) {
-				//正在检查血压
+			//			$scope.$apply(function() {
+			//					$scope.Resuly_DY = bases16;
+			//				});
+			//			
+			//			return true;
+
+			if(bases16.length > 6) {
 				
-				var basesA = bases16.substr(2, 2),
-					basesB = bases.fromBase(basesA, '16'),
-					basesC = bases.toBase(basesB, 10);
-				
-				//设置低压
-				$scope.$apply(function() {
-					$scope.Resuly_DY = basesC;
-				});
-				
-			}else{
 				//最终结果
-				
+
 				var basesA = bases16,
-					basesB = basesA.substr(2, 4),
+					basesB = basesA.substr(1, 4),
 					basesC = bases.fromBase(basesB, '16'),
 					basesD = bases.toBase(basesC, 10);
-				
+
 				//设置高压
 				$scope.$apply(function() {
 					$scope.Resuly_GY = basesD;
 				});
-				
-				
+
 				var basesA = bases16,
-					basesB = basesA.substr(6, 4),
+					basesB = basesA.substr(5, 4),
 					basesC = bases.fromBase(basesB, '16'),
 					basesD = bases.toBase(basesC, 10);
-				
+
 				//设置低压
 				$scope.$apply(function() {
 					$scope.Resuly_DY = basesD;
 				});
-				
-				var basesA = bases16.substr(-4, 2),
+
+//				var basesA = bases16.substr(-4, 2),
+//					basesB = bases.fromBase(basesA, '16'),
+//					basesC = bases.toBase(basesB, 10);
+
+				//设置脉搏
+//				$scope.$apply(function() {
+//					$scope.Resuly_MB = basesC;
+//				});
+
+			} else {
+
+				//正在检查血压
+
+				var basesA = bases16.substr(2, 2),
 					basesB = bases.fromBase(basesA, '16'),
 					basesC = bases.toBase(basesB, 10);
-				
-				//设置脉搏
+
+				//设置低压
 				$scope.$apply(function() {
-					$scope.Resuly_MB = basesC;
+					$scope.Resuly_DY = basesC;
 				});
-				
-				
+
 			}
-
-
-
-
-
-
-
-
-
-
-
-
-				str = bases16.substr(4, 4) + '',
-				Result = (parseInt(bases.toBase(str, 10))) / 10;
-			//Result_BMI = Result / (height * height) * 10000;
-
-			$scope.$apply(function() {
-				$scope.Resuly = Result;
-			});
 
 		}
 

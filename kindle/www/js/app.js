@@ -114,6 +114,11 @@ angular.module('App', ['ionic', 'ngCordova'])
 			controller: 'UserListCtrl',
 			templateUrl: 'views/userlist/userlist.html'
 		})
+		.state('user', {
+			url: '/user',
+			controller: 'User',
+			templateUrl: 'views/user/user.html'
+		})
 
 	$urlRouterProvider.otherwise('/Home');
 })

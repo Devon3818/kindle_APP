@@ -1,0 +1,87 @@
+<ion-view title="User">
+
+	<ion-nav-buttons side="right">
+		<a class="button button-clear" nav-clear ng-click="edit();">Edit</a>
+	</ion-nav-buttons>
+
+	<ion-content>
+		<style>
+			header {
+				text-align: center;
+				color: #fff;
+				width: 100%;
+				background: #e9d3a4;
+				padding: 16px 0 16px;
+			}
+			
+			header img {
+				border-radius: 9999999px;
+				width: 100px;
+				height: 100px;
+				display: block;
+				margin: 0 auto;
+				border: 6px solid #FFFFFF;
+			}
+			
+			header h4 {
+				color: #fff;
+				font-size: 30px;
+				color: #fff;
+				line-height: 50px;
+			}
+		</style>
+		<header>
+			<img src="img/user.png" ng-click="show();" />
+		</header>
+
+		<div class="list">
+			<div class="item item-divider">
+				基本信息
+			</div>
+			<label class="item item-input">
+			    <span class="input-label">Name:</span>
+			    <input type="text" ng-model="name">
+			</label>
+			<label class="item item-input">
+			    <span class="input-label">Height(cm):</span>
+			    <input type="tel" ng-model="height">
+			 </label>
+			<label class="item item-input item-select">
+			    <div class="input-label">
+			      Sex:
+			    </div>
+			    <select ng-model="sex">
+			      <option>Man</option>
+			      <option>Woman</option>
+			    </select>
+			  </label>
+
+			<div class="item item-divider">
+				最近测量
+			</div>
+
+			<a class="item item-icon-left">
+				<i class="icon ion-ios7-speedometer"></i> 成人体重
+				<span class="item-note"> 55kg</span>
+			</a>
+
+			<a class="item item-icon-left">
+				<i class="icon ion-ios7-time"></i> 婴儿体重
+				<span class="item-note"> 035.0kg</span>
+			</a>
+
+			<a class="item item-icon-left">
+				<i class="icon ion-outlet"></i> 血压测量
+				<span class="item-note"> 正常</span>
+			</a>
+
+			<a class="item item-icon-left">
+				<i class="icon ion-thermometer"></i> 最近体温
+				<span class="item-note"> 32.4°C</span>
+			</a>
+
+		</div>
+
+	</ion-content>
+
+</ion-view>
