@@ -34,6 +34,7 @@ angular.module('App').controller('TourCtrl', function($scope, $location, userArr
 				window.localStorage.uheight = $scope.userList[i]['height'];
 				window.localStorage.uname = $scope.userList[i]['name'];
 				window.localStorage.usex = $scope.userList[i]['sex'];
+				window.localStorage.ulitpic = $scope.userList[i]['litpic'];
 				
 				$("#user_litpic").attr('src',$scope.userList[i]['litpic']);
 				$("#user_name").html($scope.userList[i]['name']);
