@@ -1,4 +1,4 @@
-angular.module('App').controller('RegCtrl', function($scope, $ionicNavBarDelegate, $http, userArray, $ionicLoading) {
+angular.module('App').controller('RegCtrl', function($scope, $ionicNavBarDelegate, $http, userArray, $ionicLoading, $rootScope, $cordovaToast) {
 
 	//	var picker = new mui.PopPicker();
 	//  picker.setData([{value:'zz',text:'智子'}]);
@@ -18,8 +18,19 @@ angular.module('App').controller('RegCtrl', function($scope, $ionicNavBarDelegat
 	//注册事件
 	$scope.register = function() {
 
+		if(!$rootScope.isOnline) {
+			//无网络状态
+			$cordovaToast.showShortBottom('无可用网络').then(function(success) {
+				// success
+			}, function(error) {
+				// error
+			});
+			return true;
+		}
+
 		if($scope.username.length && $scope.password.length && $scope.height.length) {
-			if($scope.sex = "Man") {
+			
+			if($scope.sex == "Man") {
 				var sex = 0;
 			} else {
 				var sex = 1;
@@ -35,7 +46,7 @@ angular.module('App').controller('RegCtrl', function($scope, $ionicNavBarDelegat
 					//alert(JSON.stringify(response));
 
 					if(response[0]["_regok"]) {
-												
+
 						var userObj = {};
 						userObj.id = response[0]["_regok"];
 						userObj.name = response[0]["_uname"];
@@ -45,19 +56,30 @@ angular.module('App').controller('RegCtrl', function($scope, $ionicNavBarDelegat
 						userObj.litpic = 'img/user.png';
 
 						userArray.users.push(userObj);
-						
+
 						window.localStorage.userArray = JSON.stringify(userArray.users);
 						$ionicLoading.hide();
-						
+
 						$ionicNavBarDelegate.back();
 
 					} else {
-						alert("注册失败，用户名重复或其他问题");
+
+						$cordovaToast.showShortBottom('注册失败，用户名重复或其他问题').then(function(success) {
+							// success
+						}, function(error) {
+							// error
+						});
+						$ionicLoading.hide();
 					}
 
 				});
 		} else {
-			alert("请输入完整");
+
+			$cordovaToast.showShortBottom('请输入完整').then(function(success) {
+				// success
+			}, function(error) {
+				// error
+			});
 			return true;
 		}
 

@@ -1,5 +1,5 @@
 angular.module('App')
-	.controller('TemperatureHisCtrl', function($scope, userHistory, $ionicPopup, $http, $ionicLoading) {
+	.controller('TemperatureHisCtrl', function($scope, userHistory, $ionicPopup, $http, $ionicLoading, $rootScope, $cordovaToast) {
 
 		var uid = window.localStorage.uid;
 
@@ -23,16 +23,31 @@ angular.module('App')
 
 						if(!$scope.data.his) {
 							//don't allow the user to close unless he enters wifi password
+							$cordovaToast.showShortBottom('请输入要纪录数值').then(function(success) {
+									// success
+								}, function(error) {
+									// error
+								});
 							e.preventDefault();
 						} else {
-							
+
+							if(!$rootScope.isOnline) {
+								//无网络状态
+								$cordovaToast.showShortBottom('无可用网络').then(function(success) {
+									// success
+								}, function(error) {
+									// error
+								});
+								return true;
+							}
+
 							$ionicLoading.show({
 								template: 'Loading...'
 							});
-							
+
 							$http.get("http://api.3eat.net/kinleeb/data_tiwen_post.php?code=kinlee&uid=" + uid + "&dushu=" + $scope.data.his)
 								.success(function(response) {
-									
+
 									if(response[0]["_postok"] == 1) {
 
 									}
@@ -53,6 +68,17 @@ angular.module('App')
 		}
 
 		$(function() {
+
+			if(userHistory.data == 0) {
+				//无资料
+
+				$cordovaToast.showShortBottom('暂无数据可读取').then(function(success) {
+					// success
+				}, function(error) {
+					// error
+				});
+				return true;
+			}
 
 			setTimeout(function() {
 

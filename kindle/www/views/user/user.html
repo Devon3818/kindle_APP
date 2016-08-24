@@ -1,7 +1,7 @@
 <ion-view title="User">
 
 	<ion-nav-buttons side="right">
-		<a class="button button-clear" nav-clear ng-click="edit();">Edit</a>
+		<a class="button button-clear" nav-clear ng-click="save();">Save</a>
 	</ion-nav-buttons>
 
 	<ion-content>
@@ -11,7 +11,7 @@
 				color: #fff;
 				width: 100%;
 				background: #e9d3a4;
-				padding: 16px 0 16px;
+				padding: 16px 0 4px;
 			}
 			
 			header img {
@@ -27,11 +27,12 @@
 				color: #fff;
 				font-size: 30px;
 				color: #fff;
-				line-height: 50px;
+				line-height: 40px;
 			}
 		</style>
 		<header>
-			<img id="user_litpic" src="img/user.png" ng-click="show();" />
+			<img id="user_litpic" src="{{ litpic }}" ng-click="show();" />
+			<h4>{{name}}</h4>
 		</header>
 
 		<div class="list">
@@ -39,18 +40,14 @@
 				基本信息
 			</div>
 			<label class="item item-input">
-			    <span class="input-label">Name:</span>
-			    <input type="text" ng-model="name">
-			</label>
-			<label class="item item-input">
 			    <span class="input-label">Height(cm):</span>
-			    <input type="tel" ng-model="height">
+			    <input type="tel" id="set_height" ng-model="height" ng-change="change()">
 			 </label>
 			<label class="item item-input item-select">
 			    <div class="input-label">
 			      Sex:
 			    </div>
-			    <select ng-model="sex">
+			    <select id="set_sex" ng-model="sex" ng-change="change()">
 			      <option>Man</option>
 			      <option>Woman</option>
 			    </select>

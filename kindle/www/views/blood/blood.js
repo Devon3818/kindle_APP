@@ -1,5 +1,5 @@
 angular.module('App')
-	.controller('BloodCtrl', function($scope, $ionicPopup, $http, $ionicLoading) {
+	.controller('BloodCtrl', function($scope, $ionicPopup, $http, $ionicLoading, $rootScope, $cordovaToast) {
 
 		$scope.Resuly_DY = '000';
 		$scope.Resuly_GY = '000';
@@ -11,6 +11,16 @@ angular.module('App')
 
 		//保存
 		$scope.save = function() {
+
+			if(!$rootScope.isOnline) {
+				//无网络状态
+				$cordovaToast.showShortBottom('无可用网络').then(function(success) {
+					// success
+				}, function(error) {
+					// error
+				});
+				return true;
+			}
 
 			$ionicLoading.show({
 				template: 'Loading...'
@@ -58,6 +68,11 @@ angular.module('App')
 
 						if(!$scope.data.his1 && !$scope.data.his2 && !$scope.data.his3) {
 							//don't allow the user to close unless he enters wifi password
+							$cordovaToast.showShortBottom('请输入要纪录数值').then(function(success) {
+									// success
+								}, function(error) {
+									// error
+								});
 							e.preventDefault();
 						} else {
 
@@ -82,7 +97,11 @@ angular.module('App')
 					$scope.ble_startScan();
 
 				} else {
-					alert("未开启蓝牙");
+					$cordovaToast.showShortBottom('未开启蓝牙').then(function(success) {
+						// success
+					}, function(error) {
+						// error
+					});
 				}
 			}, {
 				"request": true,
@@ -111,11 +130,16 @@ angular.module('App')
 					//alert("requestPermission ok");
 					$scope.ble_isInitialized();
 				} else {
-					alert("权限不足，蓝牙功能受限");
+
+					$cordovaToast.showShortBottom('权限不足，蓝牙功能受限').then(function(success) {
+						// success
+					}, function(error) {
+						// error
+					});
 				}
 
 			}, function() {
-				alert("requestPermission no");
+				//alert("requestPermission no");
 			});
 		}
 
@@ -134,14 +158,19 @@ angular.module('App')
 							$scope.ble_connect(address);
 
 						}, function(status) {
-							alert("停止扫描报错");
+							//alert("停止扫描报错");
 						});
 
 					}
 				}
 
 			}, function(status) {
-				alert("扫描失败");
+
+				$cordovaToast.showShortBottom('扫描失败').then(function(success) {
+					// success
+				}, function(error) {
+					// error
+				});
 			}, {
 				"services": [],
 				"allowDuplicates": true,
@@ -175,7 +204,7 @@ angular.module('App')
 							});
 						}
 					}, function(status) {
-						alert("close：" + JSON.stringify(status));
+						//alert("close：" + JSON.stringify(status));
 					}, {
 						"address": address
 					});
@@ -183,7 +212,12 @@ angular.module('App')
 				}
 
 			}, function(status) {
-				alert("连接失败" + JSON.stringify(status));
+				//alert("连接失败" + JSON.stringify(status));
+				$cordovaToast.showShortBottom('连接失败').then(function(success) {
+					// success
+				}, function(error) {
+					// error
+				});
 			}, {
 				"address": address
 			});
@@ -254,7 +288,7 @@ angular.module('App')
 			//			return true;
 
 			if(bases16.length > 6) {
-				
+
 				//最终结果
 
 				var basesA = bases16,
@@ -277,14 +311,14 @@ angular.module('App')
 					$scope.Resuly_DY = basesD;
 				});
 
-//				var basesA = bases16.substr(-4, 2),
-//					basesB = bases.fromBase(basesA, '16'),
-//					basesC = bases.toBase(basesB, 10);
+				//				var basesA = bases16.substr(-4, 2),
+				//					basesB = bases.fromBase(basesA, '16'),
+				//					basesC = bases.toBase(basesB, 10);
 
 				//设置脉搏
-//				$scope.$apply(function() {
-//					$scope.Resuly_MB = basesC;
-//				});
+				//				$scope.$apply(function() {
+				//					$scope.Resuly_MB = basesC;
+				//				});
 
 			} else {
 

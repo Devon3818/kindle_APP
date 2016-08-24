@@ -1,4 +1,4 @@
-angular.module('App').controller('LogCtrl', function($scope, $ionicNavBarDelegate, $http, $cordovaFileTransfer, userArray, $ionicLoading) {
+angular.module('App').controller('LogCtrl', function($scope, $ionicNavBarDelegate, $http, $cordovaFileTransfer, userArray, $ionicLoading, $rootScope, $cordovaToast) {
 
 	//	var picker = new mui.PopPicker();
 	//  picker.setData([{value:'zz',text:'智子'}]);
@@ -13,7 +13,17 @@ angular.module('App').controller('LogCtrl', function($scope, $ionicNavBarDelegat
 
 	//登录事件
 	$scope.login = function() {
-
+		
+		if(!$rootScope.isOnline) {
+			//无网络状态
+			$cordovaToast.showShortBottom('无可用网络').then(function(success) {
+				// success
+			}, function(error) {
+				// error
+			});
+			return true;
+		}
+		
 		if($scope.Username.length && $scope.password.length) {
 
 			$ionicLoading.show({
@@ -47,12 +57,23 @@ angular.module('App').controller('LogCtrl', function($scope, $ionicNavBarDelegat
 							$ionicNavBarDelegate.back();
 						}
 
+					}else{
+						$cordovaToast.showShortBottom('登录失败，用户名或秘密有误').then(function(success) {
+							// success
+						}, function(error) {
+							// error
+						});
+						$ionicLoading.hide();
 					}
 
 				});
 
 		} else {
-			alert("请输入完整");
+			$cordovaToast.showShortBottom('请输入完整').then(function(success) {
+				// success
+			}, function(error) {
+				// error
+			});
 		}
 
 	}

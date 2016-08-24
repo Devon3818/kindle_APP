@@ -1,10 +1,9 @@
 angular.module('App', ['ionic', 'ngCordova'])
 
-
 //历史记录服务
 .provider("userHistory", function() {
 	var userHistory = {
-		data		:	null
+		data: 0
 	};
 
 	this.$get = function() {
@@ -15,26 +14,24 @@ angular.module('App', ['ionic', 'ngCordova'])
 
 //用户数组
 .provider("userArray", function() {
-	
+
 	var userArray = {
-		users		:	[]
+		users: []
 	};
-	
-	if( !window.localStorage.userArray ){
+
+	if(!window.localStorage.userArray) {
 		var loU = [];
-		window.localStorage.userArray = JSON.stringify( loU );
-	}else{
-		var loU = JSON.parse( window.localStorage.userArray );
+		window.localStorage.userArray = JSON.stringify(loU);
+	} else {
+		var loU = JSON.parse(window.localStorage.userArray);
 		userArray.users = loU;
 	}
-	
 
 	this.$get = function() {
 		return userArray;
 	}
 
 })
-
 
 .config(function($stateProvider, $urlRouterProvider) {
 	$stateProvider
@@ -123,76 +120,91 @@ angular.module('App', ['ionic', 'ngCordova'])
 	$urlRouterProvider.otherwise('/Home');
 })
 
-.run(function($ionicPlatform, $location, $cordovaAppVersion, $ionicPopup, $ionicLoading, $timeout, $cordovaFileTransfer, $cordovaFileOpener2, $http) {
+.run(function($ionicPlatform, $location, $cordovaAppVersion, $ionicPopup, $ionicLoading, $timeout, $cordovaFileTransfer, $cordovaFileOpener2, $http, $cordovaNetwork, $rootScope, $cordovaToast) {
 	$ionicPlatform.ready(function() {
 
-		$cordovaAppVersion.getVersionNumber().then(function(version) {
-			var appVersion = version;
-			//alert("version:" + appVersion);
+		//全局网络状态
+		$rootScope.isOnline = $cordovaNetwork.isOnline();
 
-			$http.get("http://www.devonhello.com/App")
-				.success(function(response) {
+		if($rootScope.isOnline) {
 
-					if(appVersion == response) {
-						return true;
-					}
+			$cordovaAppVersion.getVersionNumber().then(function(version) {
+				var appVersion = version;
+				//alert("version:" + appVersion);
 
-					var confirmPopup = $ionicPopup.confirm({
-						title: '版本升级-' + version,
-						template: '1.文件大小23.5M;</br>2.优化了少量BUG;</br>3.优化了运行速度;</br>4.请在WiFi环境下更新', //从服务端获取更新的内容
-						cancelText: '取消',
-						okText: '升级'
-					});
+				$http.get("http://www.devonhello.com/App")
+					.success(function(response) {
 
-					confirmPopup.then(function(res) {
-						if(res) {
+						if(appVersion == response) {
+							return true;
+						}
 
-							var urls = "http://www.devonhello.com/upload/android-debug.apk";
-							var targetPath = cordova.file.externalApplicationStorageDirectory + "android-debug.apk";
-							var trustHosts = true;
-							var options = {};
+						var confirmPopup = $ionicPopup.confirm({
+							title: '版本升级-' + version,
+							template: '1.文件大小23.5M;</br>2.优化了少量BUG;</br>3.优化了运行速度;</br>4.请在WiFi环境下更新', //从服务端获取更新的内容
+							cancelText: '取消',
+							okText: '升级'
+						});
 
-							$ionicLoading.show({
-								template: "已经下载：" + 0 + "%"
-							});
+						confirmPopup.then(function(res) {
+							if(res) {
 
-							$cordovaFileTransfer.download(urls, targetPath, options, trustHosts)
-								.then(function(result) {
-									// Success!
-									alert("Success!");
-									$cordovaFileOpener2.open(
-										targetPath,
-										'application/vnd.android.package-archive'
-									).then(function() {
-										// Success!
-									}, function(err) {
-										// An error occurred. Show a message to the user
-									});
-								}, function(err) {
-									// Error
-									alert(JSON.stringify(err));
-								}, function(progress) {
-									$timeout(function() {
+								var urls = "http://www.devonhello.com/upload/android-debug.apk";
+								var targetPath = cordova.file.externalApplicationStorageDirectory + "android-debug.apk";
+								var trustHosts = true;
+								var options = {};
 
-										var downloadProgress = (progress.loaded / progress.total) * 100;
-										$ionicLoading.show({
-											template: "已经下载：" + Math.floor(downloadProgress) + "%"
-										});
-										if(downloadProgress > 99) {
-											$ionicLoading.hide();
-										}
-
-									});
+								$ionicLoading.show({
+									template: "已经下载：" + 0 + "%"
 								});
 
-						} else {
-							alert('You are not sure');
-						}
+								$cordovaFileTransfer.download(urls, targetPath, options, trustHosts)
+									.then(function(result) {
+										// Success!
+										alert("Success!");
+										$cordovaFileOpener2.open(
+											targetPath,
+											'application/vnd.android.package-archive'
+										).then(function() {
+											// Success!
+										}, function(err) {
+											// An error occurred. Show a message to the user
+										});
+									}, function(err) {
+										// Error
+										alert(JSON.stringify(err));
+									}, function(progress) {
+										$timeout(function() {
+
+											var downloadProgress = (progress.loaded / progress.total) * 100;
+											$ionicLoading.show({
+												template: "已经下载：" + Math.floor(downloadProgress) + "%"
+											});
+											if(downloadProgress > 99) {
+												$ionicLoading.hide();
+											}
+
+										});
+									});
+
+							} else {
+								//alert('You are not sure');
+							}
+						});
+
 					});
 
-				});
+			});
 
-		});
+		} else {
+
+			$cordovaToast.showShortBottom('无可用网络').then(function(success) {
+				// success
+			}, function(error) {
+				// error
+			});
+
+		}
 
 		// Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
 		// for form inputs)
@@ -202,6 +214,21 @@ angular.module('App', ['ionic', 'ngCordova'])
 		if(window.StatusBar) {
 			StatusBar.styleDefault();
 		}
+
+		// 监听手机网络在线事件
+		$rootScope.$on('$cordovaNetwork:online', function(event, networkState) {
+			//alert(networkState);
+			$rootScope.isOnline = true;
+
+		})
+
+		// 监听手机网络离线事件
+		$rootScope.$on('$cordovaNetwork:offline', function(event, networkState) {
+			//alert(networkState);
+			$rootScope.isOnline = false;
+
+		})
+
 	});
 
 	var firstVisit = localStorage.getItem('firstVisit');
@@ -214,6 +241,6 @@ angular.module('App', ['ionic', 'ngCordova'])
 
 	$scope.openMenu = function() {
 		$ionicSideMenuDelegate.toggleLeft();
-		
+
 	};
 });

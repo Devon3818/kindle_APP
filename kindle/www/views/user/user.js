@@ -1,14 +1,50 @@
-angular.module('App').controller('User', function($scope, userArray, $ionicActionSheet, $cordovaCamera, $cordovaFileTransfer) {
+angular.module('App').controller('User', function($scope, userArray, $ionicActionSheet, $cordovaCamera, $cordovaFileTransfer, $rootScope, $ionicLoading, $cordovaToast) {
 
 	var uid = window.localStorage.uid;
 
+	$scope.edit = false;
 	$scope.sex = $("#user_sex").html();
 
 	$scope.name = window.localStorage.uname;
 
 	$scope.height = window.localStorage.uheight;
 
-	$("#user_litpic").attr('src', window.localStorage.ulitpic);
+	//$("#user_litpic").attr('src', window.localStorage.ulitpic);
+
+	$scope.litpic = window.localStorage.ulitpic;
+
+	//资料更改状态变化标示
+	$scope.change = function() {
+		$scope.edit = true;
+		
+	};
+
+	//提交信息，更新信息资料
+	$scope.save = function() {
+		
+		if(!$rootScope.isOnline) {
+			//无网络状态
+			$cordovaToast.showShortBottom('无可用网络').then(function(success) {
+				// success
+			}, function(error) {
+				// error
+			});
+			return true;
+		}
+		if($scope.edit) {
+			$ionicLoading.show({
+				template: 'Loading...'
+			});
+			$scope.upload($scope.litpic);
+		} else {
+			
+			$cordovaToast.showShortBottom('没有资料更改').then(function(success) {
+				// success
+			}, function(error) {
+				// error
+			});
+		}
+	}
 
 	// Triggered on a button click, or some other target
 	$scope.show = function() {
@@ -61,8 +97,10 @@ angular.module('App').controller('User', function($scope, userArray, $ionicActio
 		}
 
 		$cordovaCamera.getPicture(options).then(function(imageURI) {
-			$("#user_litpic").attr('src', imageURI);
-			$scope.upload(imageURI);
+			$scope.edit = true;
+			//$("#user_litpic").attr('src', imageURI);
+			$scope.litpic = imageURI;
+			//$scope.upload(imageURI);
 		}, function(err) {
 			// error
 		});
@@ -73,17 +111,16 @@ angular.module('App').controller('User', function($scope, userArray, $ionicActio
 
 		var server = "http://api.3eat.net/kinleeb/user_modify.php";
 
-		alert(filePath.substr(filePath.lastIndexOf('/') + 1));
 		var options = new FileUploadOptions();
 		options.fileKey = "upfile";
 
 		var params = {};
-		params.age = 22;
-		params.height = 158;
+		params.age = 18;
+		params.height = $("#set_height").val();
 		params.email = "test@qq.com";
 		params.uid = uid;
 		params.code = "kinlee";
-		params.sex = 0;
+		params.sex = $("#set_sex").val() == "Man" ? 0 : 1;
 
 		options.params = params;
 
@@ -108,12 +145,40 @@ angular.module('App').controller('User', function($scope, userArray, $ionicActio
 				}
 			}, function(err) {
 				// Error
-				alert(err);
+				//alert(err);
 				alert(JSON.stringify(err));
 			}, function(progress) {
 				// constant progress updates
 				//alert(progress);
 			});
+
+	}
+
+	//用户数组资料更新
+	$scope.upArr = function(id) {
+
+		var len = userArray.users.length;
+		
+		for(var i = 0; i < len; i++) {
+			
+			if(userArray.users[i]["id"] == id) {
+				
+				userArray.users[i]["sex"] = $("#set_sex").val() == "Man" ? 0 : 1;
+				//userArray.users[i]["age"]
+				userArray.users[i]["height"] = $("#set_height").val();
+				userArray.users[i]["litpic"] = $scope.litpic;
+				$("#user_sex").html($("#set_sex").val());
+				$("#user_height").html(userArray.users[i]['height']);
+				window.localStorage.uheight = userArray.users[i]["height"];
+				
+
+				window.localStorage.usex = userArray.users[i]["sex"];
+				window.localStorage.ulitpic = $scope.litpic;
+				window.localStorage.userArray = JSON.stringify(userArray.users);
+				$ionicLoading.hide();
+				break;
+			}
+		}
 
 	}
 
@@ -126,12 +191,12 @@ angular.module('App').controller('User', function($scope, userArray, $ionicActio
 		$cordovaFileTransfer.download(urls, targetPath, options, trustHosts)
 			.then(function(result) {
 
-				alert(result["nativeURL"]);
-
+				//alert(result["nativeURL"]);
+				$scope.upArr(id);
 			}, function(err) {
 				// Error
 
-				alert(JSON.stringify(err));
+				//alert(JSON.stringify(err));
 			}, function(progress) {
 
 			});

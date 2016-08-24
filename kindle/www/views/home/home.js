@@ -1,13 +1,13 @@
-angular.module('App').controller('HomeCtrl', function($scope, $cordovaFile, $http, userHistory) {
-	
+angular.module('App').controller('HomeCtrl', function($scope, $cordovaFile, $http, userHistory, $rootScope, $cordovaToast) {
+
 	$scope.uid = window.localStorage.uid;
-	
+
 	$scope.ble_isEnabled = function() {
 
 		bluetoothle.isEnabled(function(status) {
 
 			if(status["isEnabled"] == false) {
-				alert("开启蓝牙功能");
+
 				$scope.ble_enable();
 			}
 
@@ -18,14 +18,13 @@ angular.module('App').controller('HomeCtrl', function($scope, $cordovaFile, $htt
 	$scope.ble_enable = function() {
 		bluetoothle.enable(function(status) {
 
-			alert("蓝牙已开启");
-			alert(JSON.stringify(status));
-
 		}, function(status) {
 
-			alert("蓝牙开启失败");
-			alert(JSON.stringify(status));
-
+			$cordovaToast.showShortBottom('蓝牙开启失败').then(function(success) {
+				// success
+			}, function(error) {
+				// error
+			});
 		});
 	}
 
@@ -52,7 +51,12 @@ angular.module('App').controller('HomeCtrl', function($scope, $cordovaFile, $htt
 				$scope.ble_isEnabled();
 
 			} else {
-				alert("未开启蓝牙");
+
+				$cordovaToast.showShortBottom('未开启蓝牙').then(function(success) {
+					// success
+				}, function(error) {
+					// error
+				});
 			}
 		}, {
 			"request": true,
@@ -79,11 +83,16 @@ angular.module('App').controller('HomeCtrl', function($scope, $cordovaFile, $htt
 				//alert("requestPermission ok");
 				$scope.ble_isInitialized();
 			} else {
-				alert("权限不足，蓝牙功能受限");
+
+				$cordovaToast.showShortBottom('权限不足，蓝牙功能受限').then(function(success) {
+					// success
+				}, function(error) {
+					// error
+				});
 			}
 
 		}, function() {
-			alert("requestPermission no");
+			//alert("requestPermission no");
 		});
 	}
 
@@ -97,26 +106,38 @@ angular.module('App').controller('HomeCtrl', function($scope, $cordovaFile, $htt
 	//文件写入
 	$scope.writeF = function() {
 
+		if(!$rootScope.isOnline) {
+			//无网络状态
+			$cordovaToast.showShortBottom('无可用网络').then(function(success) {
+				// success
+			}, function(error) {
+				// error
+			});
+
+			// 读取文件
+			$cordovaFile.readAsText(cordova.file.dataDirectory, "data_" + $scope.uid + ".txt")
+				.then(function(success) {
+					// success
+					userHistory.data = JSON.parse(success);
+
+				}, function(error) {
+					// error
+					//alert("资料获取失败");
+				});
+
+			return true;
+		}
+
 		$http.get("http://api.3eat.net/kinleeb/all_his.php?code=kinlee&uid=" + $scope.uid)
 			.success(function(response) {
 				//$scope.names = response.records;
 				var content = JSON.stringify(response);
 
 				//写入文件测试
-				$cordovaFile.writeFile(cordova.file.dataDirectory, "data_"+ $scope.uid +".txt", content, true)
+				$cordovaFile.writeFile(cordova.file.dataDirectory, "data_" + $scope.uid + ".txt", content, true)
 					.then(function(success) {
-
-						// 读取文件
-						$cordovaFile.readAsText(cordova.file.dataDirectory, "data_"+ $scope.uid +".txt")
-							.then(function(success) {
-								// success
-								userHistory.data = JSON.parse(success);
-
-							}, function(error) {
-								// error
-								alert("读取失败");
-							});
-
+						userHistory.data = JSON.parse(content);
+						
 					}, function(error) {
 						// error
 						alert("error:" + error);

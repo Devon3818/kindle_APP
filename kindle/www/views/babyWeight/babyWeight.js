@@ -1,22 +1,31 @@
 angular.module('App')
-	.controller('BabyWeightCtrl', function($scope, $ionicPopup, $http, $ionicLoading) {
+	.controller('BabyWeightCtrl', function($scope, $ionicPopup, $http, $ionicLoading, $rootScope, $cordovaToast) {
 
 		$scope.Resuly = '00.000';
 		$scope.isConnect = 'StartScan';
 		$scope.address = false;
-		
+
 		var uid = window.localStorage.uid;
-		
+
 		//保存
 		$scope.save = function() {
-			
+
+			if(!$rootScope.isOnline) {
+				//无网络状态
+				$cordovaToast.showShortBottom('无可用网络').then(function(success) {
+					// success
+				}, function(error) {
+					// error
+				});
+				return true;
+			}
+
 			$ionicLoading.show({
 				template: 'Loading...'
 			});
-			
+
 			$http.get("http://api.3eat.net/kinleeb/data_chengbaby_post.php?code=kinlee&uid=" + uid + "&weight=" + $scope.Resuly)
 				.success(function(response) {
-					
 
 					if(response[0]["_postok"] == 1) {
 
@@ -31,10 +40,10 @@ angular.module('App')
 
 		//清除
 		$scope.again = function() {
-			
+
 			$scope.Resuly = '00.000';
 		}
-		
+
 		$scope.show = function() {
 
 			$scope.data = {};
@@ -55,6 +64,11 @@ angular.module('App')
 
 						if(!$scope.data.his) {
 							//don't allow the user to close unless he enters wifi password
+							$cordovaToast.showShortBottom('请输入要纪录数值').then(function(success) {
+									// success
+								}, function(error) {
+									// error
+								});
 							e.preventDefault();
 						} else {
 							//alert($scope.data.his);
@@ -68,7 +82,7 @@ angular.module('App')
 			});
 
 		}
-		
+
 		//初始化蓝牙
 		$scope.ble_initialize = function() {
 			bluetoothle.initialize(function(status) {
@@ -77,7 +91,12 @@ angular.module('App')
 					$scope.ble_startScan();
 
 				} else {
-					alert("未开启蓝牙");
+
+					$cordovaToast.showShortBottom('未开启蓝牙').then(function(success) {
+						// success
+					}, function(error) {
+						// error
+					});
 				}
 			}, {
 				"request": true,
@@ -106,11 +125,16 @@ angular.module('App')
 					//alert("requestPermission ok");
 					$scope.ble_isInitialized();
 				} else {
-					alert("权限不足，蓝牙功能受限");
+
+					$cordovaToast.showShortBottom('权限不足，蓝牙功能受限').then(function(success) {
+						// success
+					}, function(error) {
+						// error
+					});
 				}
 
 			}, function() {
-				alert("requestPermission no");
+				//alert("requestPermission no");
 			});
 		}
 
@@ -129,14 +153,18 @@ angular.module('App')
 							$scope.ble_connect(address);
 
 						}, function(status) {
-							alert("停止扫描报错");
+							//alert("停止扫描报错");
 						});
 
 					}
 				}
 
 			}, function(status) {
-				alert("扫描失败");
+				$cordovaToast.showShortBottom('扫描失败').then(function(success) {
+					// success
+				}, function(error) {
+					// error
+				});
 			}, {
 				"services": [],
 				"allowDuplicates": true,
@@ -170,7 +198,7 @@ angular.module('App')
 							});
 						}
 					}, function(status) {
-						alert("close：" + JSON.stringify(status));
+						//alert("close：" + JSON.stringify(status));
 					}, {
 						"address": address
 					});
@@ -178,7 +206,12 @@ angular.module('App')
 				}
 
 			}, function(status) {
-				alert("连接失败" + JSON.stringify(status));
+				//alert("连接失败" + JSON.stringify(status));
+				$cordovaToast.showShortBottom('连接失败').then(function(success) {
+					// success
+				}, function(error) {
+					// error
+				});
 			}, {
 				"address": address
 			});

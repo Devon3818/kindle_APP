@@ -1,10 +1,19 @@
-angular.module('App').controller('SetCtrl', function($scope, $ionicNavBarDelegate, $http, $ionicLoading, $cordovaAppVersion, $ionicPopup, $timeout, $cordovaFileTransfer, $cordovaFileOpener2) {
+angular.module('App').controller('SetCtrl', function($scope, $ionicNavBarDelegate, $http, $ionicLoading, $cordovaAppVersion, $ionicPopup, $timeout, $cordovaFileTransfer, $cordovaFileOpener2, $rootScope, $cordovaToast) {
 
 	$scope.pushNotification = true;
 	$scope.version = "0.0.0";
 
-
 	$scope.update = function() {
+
+		if(!$rootScope.isOnline) {
+			//无网络状态
+			$cordovaToast.showLongBottom('无可用网络').then(function(success) {
+				// success
+			}, function(error) {
+				// error
+			});
+			return true;
+		}
 
 		$cordovaAppVersion.getVersionNumber().then(function(version) {
 			var appVersion = version;
