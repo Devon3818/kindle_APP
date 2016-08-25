@@ -1,4 +1,4 @@
-<ion-view title="Adult Weight">
+<ion-view title="成人秤">
   
   <ion-nav-buttons side="right">
 		<a class="button button-clear" nav-clear ng-click="show();"><i class="icon ion-calendar"></i></a>
@@ -16,7 +16,8 @@
 
 		<div class="row">
 			<div class="col Equipment_cont">
-				<p style="height: 120px; line-height: 120px;">{{ Resuly }}</p>
+				<p style="height: 120px; line-height: 120px; font-size: 70px;">{{ Resuly }}</p>
+				
 				<p id="bmi_p">BMI: {{ BMI }}</p>
 			</div>
 
@@ -28,10 +29,10 @@
 	</ion-content>
 	<section class="dv_buttons">
 		<button class="button button-block button-balanced activated" ng-click="save();">
-  			Save Data
+  			保存数据
 		</button>
 		<button class="button button-block button-positive" ng-click="again();">
-  			Start Again
+  			清除数据
 		</button>
 	</section>
   

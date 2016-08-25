@@ -10,14 +10,14 @@ angular.module('App')
 			// 一个精心制作的自定义弹窗
 			var myPopup = $ionicPopup.show({
 				template: '<input type="tel" ng-model="data.his">',
-				title: 'The values of input record',
-				subTitle: 'Please use normal things',
+				title: '请输入你要记录的数值',
+				subTitle: '保存将上传到云端',
 				scope: $scope,
 				buttons: [{
-					text: 'Cancel',
+					text: '取消',
 
 				}, {
-					text: '<b>Save</b>',
+					text: '<b>保存</b>',
 					type: 'button-positive',
 					onTap: function(e) {
 
@@ -100,7 +100,7 @@ angular.module('App')
 						}
 					},
 					title: {
-						text: 'Temperature History'
+						text: '体温'
 					},
 					//				subtitle: {
 					//					text: 'Source: <a href="http://thebulletin.metapress.com/content/c4120650912x74k7/fulltext.pdf">' +
@@ -127,11 +127,11 @@ angular.module('App')
 						}
 					},
 					tooltip: {
-						pointFormat: '{series.name} produced <b>{point.y:,.0f}</b><br/>warheads in {point.x}'
+						pointFormat: '{series.name} ： <b>{point.y:,.0f}</b>'
 					},
 
 					series: [{
-						name: 'USA',
+						name: '体温',
 						//data: [45, 42, 10, 80, 52, 46, 21, 32, 70, 25, 79, 64]
 						data: userHistory.data[2][1][0]["_Acontent"]
 					}]

@@ -1,7 +1,7 @@
-<ion-view title="User">
+<ion-view title="用户中心">
 
 	<ion-nav-buttons side="right">
-		<a class="button button-clear" nav-clear ng-click="save();">Save</a>
+		<a class="button button-clear" nav-clear ng-click="save();">保存</a>
 	</ion-nav-buttons>
 
 	<ion-content>
@@ -40,16 +40,16 @@
 				基本信息
 			</div>
 			<label class="item item-input">
-			    <span class="input-label">Height(cm):</span>
+			    <span class="input-label">身高(cm)：</span>
 			    <input type="tel" id="set_height" ng-model="height" ng-change="change()">
 			 </label>
 			<label class="item item-input item-select">
 			    <div class="input-label">
-			      Sex:
+			      性别：
 			    </div>
 			    <select id="set_sex" ng-model="sex" ng-change="change()">
-			      <option>Man</option>
-			      <option>Woman</option>
+			      <option>男</option>
+			      <option>女</option>
 			    </select>
 			  </label>
 

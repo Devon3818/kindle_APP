@@ -102,7 +102,7 @@ angular.module('App').controller('LogCtrl', function($scope, $ionicNavBarDelegat
 			}, function(err) {
 				// Error
 				$ionicLoading.hide();
-				alert(JSON.stringify(err));
+				//alert(JSON.stringify(err));
 			}, function(progress) {
 
 			});

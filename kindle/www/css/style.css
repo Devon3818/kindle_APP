@@ -43,6 +43,7 @@
 .Equipment_cont p { font-size: 120px; height: 200px; display: block; line-height: 200px; text-align: center; color: #0A9DC7;}
 .blood_cont { padding-bottom: 16px;}
 .blood_cont p { text-align: center; font-size: 60px; line-height: 68px; color: #0A9DC7;}
+.blood_cont p span { text-align: center; font-size: 35px; line-height: 68px; color: #0A9DC7; display: inline-block;}
 .Equipment_cont #bmi_p { text-align: center; font-size: 60px; height: 68px; line-height: 68px; color: #0A9DC7;}
 
 .c_icon { display: block; float: right; width: 15%; margin: 5%;}

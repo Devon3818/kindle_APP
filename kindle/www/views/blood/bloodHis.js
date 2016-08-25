@@ -9,15 +9,15 @@ angular.module('App')
 
 			// 一个精心制作的自定义弹窗
 			var myPopup = $ionicPopup.show({
-				template: '<input type="tel" ng-model="data.his1"><br/><input type="tel" ng-model="data.his2"><br/><input type="tel" ng-model="data.his3">',
-				title: 'The values of input record',
-				subTitle: 'Please use normal things',
+				template: '<input type="tel" placeholder="高压" ng-model="data.his1"><br/><input type="tel" placeholder="低压" ng-model="data.his2"><br/><input type="tel" placeholder="脉搏" ng-model="data.his3">',
+				title: '请输入你要记录的数值',
+				subTitle: '保存将上传到云端',
 				scope: $scope,
 				buttons: [{
-					text: 'Cancel',
+					text: '取消',
 
 				}, {
-					text: '<b>Save</b>',
+					text: '<b>保存</b>',
 					type: 'button-positive',
 					onTap: function(e) {
 
@@ -99,7 +99,7 @@ angular.module('App')
 						}
 					},
 					title: {
-						text: 'Adult Weight History'
+						text: '高压'
 					},
 					//				subtitle: {
 					//					text: 'Source: <a href="http://thebulletin.metapress.com/content/c4120650912x74k7/fulltext.pdf">' +
@@ -121,16 +121,16 @@ angular.module('App')
 						},
 						labels: {
 							formatter: function() {
-								return this.value + 'kg';
+								return this.value + 'mmHg';
 							}
 						}
 					},
 					tooltip: {
-						pointFormat: '{series.name} produced <b>{point.y:,.0f}</b><br/>warheads in {point.x}'
+						pointFormat: '{series.name} : <b>{point.y:,.0f}</b>'
 					},
 
 					series: [{
-						name: 'USA',
+						name: '高压',
 						//data: [45, 42, 10, 80, 52, 46, 21, 32, 70, 25, 79, 64]
 						data: userHistory.data[3][1][0]["_Acontent"]
 					}]
@@ -156,7 +156,7 @@ angular.module('App')
 						}
 					},
 					title: {
-						text: 'BMI'
+						text: '低压'
 					},
 					//				subtitle: {
 					//					text: 'Source: <a href="http://thebulletin.metapress.com/content/c4120650912x74k7/fulltext.pdf">' +
@@ -178,16 +178,16 @@ angular.module('App')
 						},
 						labels: {
 							formatter: function() {
-								return this.value + 'kg';
+								return this.value + 'mmHg';
 							}
 						}
 					},
 					tooltip: {
-						pointFormat: '{series.name} produced <b>{point.y:,.0f}</b><br/>warheads in {point.x}'
+						pointFormat: '{series.name} ： <b>{point.y:,.0f}</b>'
 					},
 
 					series: [{
-						name: 'USA',
+						name: '低压',
 						//data: [15, 10, 10, 14, 14, 18, 21, 32, 12, 10, 11, 14]
 						data: userHistory.data[3][1][0]["_Bcontent"]
 					}]
@@ -215,7 +215,7 @@ angular.module('App')
 						}
 					},
 					title: {
-						text: 'BMI'
+						text: '脉搏'
 					},
 					//				subtitle: {
 					//					text: 'Source: <a href="http://thebulletin.metapress.com/content/c4120650912x74k7/fulltext.pdf">' +
@@ -237,16 +237,16 @@ angular.module('App')
 						},
 						labels: {
 							formatter: function() {
-								return this.value + 'kg';
+								return this.value + 'mmHk/kPa';
 							}
 						}
 					},
 					tooltip: {
-						pointFormat: '{series.name} produced <b>{point.y:,.0f}</b><br/>warheads in {point.x}'
+						pointFormat: '{series.name} ： <b>{point.y:,.0f}</b>'
 					},
 
 					series: [{
-						name: 'USA',
+						name: '脉搏',
 						//data: [15, 10, 10, 14, 14, 18, 21, 32, 12, 10, 11, 14]
 						data: userHistory.data[3][1][0]["_Ccontent"]
 					}]

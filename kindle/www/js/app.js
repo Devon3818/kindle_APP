@@ -120,12 +120,22 @@ angular.module('App', ['ionic', 'ngCordova'])
 	$urlRouterProvider.otherwise('/Home');
 })
 
-.run(function($ionicPlatform, $location, $cordovaAppVersion, $ionicPopup, $ionicLoading, $timeout, $cordovaFileTransfer, $cordovaFileOpener2, $http, $cordovaNetwork, $rootScope, $cordovaToast) {
+.run(function($ionicPlatform, $location, $cordovaAppVersion, $ionicPopup, $ionicLoading, $timeout, $cordovaFileTransfer, $cordovaFileOpener2, $http, $cordovaNetwork, $rootScope, $cordovaToast, $cordovaDevice) {
 	$ionicPlatform.ready(function() {
 
 		//全局网络状态
 		$rootScope.isOnline = $cordovaNetwork.isOnline();
-
+		
+		//全局手机系统
+		$rootScope.systemName = $cordovaDevice.getPlatform();
+		
+		//全局手机系统版本
+		$rootScope.systemVersion = $cordovaDevice.getVersion().split('.')[0];
+		
+		//遗留属性
+		//alert($rootScope.systemName);
+		//alert($rootScope.systemVersion);
+		
 		if($rootScope.isOnline) {
 
 			$cordovaAppVersion.getVersionNumber().then(function(version) {

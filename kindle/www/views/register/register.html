@@ -1,28 +1,28 @@
-<ion-view title="Register">
+<ion-view title="注册">
 
 	<ion-content ng-controller="RegCtrl">
 
 		<div class="list">
 			<label class="item item-input">
-			  <span class="input-label">Username</span>
-			  <input ng-model="username" type="text" maxlength="10" placeholder="your name">
+			  <span class="input-label">用户：</span>
+			  <input ng-model="username" type="text" maxlength="10" placeholder="输入你的呢称">
 			</label>
 			<label class="item item-input">
-			  <span class="input-label">Password</span>
-			  <input ng-model="password" type="password" maxlength="8" placeholder="your password">
+			  <span class="input-label">密码：</span>
+			  <input ng-model="password" type="password" maxlength="8" placeholder="输入你的密码">
 			</label>
 			<label class="item item-input">
-			  <span class="input-label">Height(CM)</span>
-			  <input ng-model="height" type="tel" placeholder="your height">
+			  <span class="input-label">身高(CM)</span>
+			  <input ng-model="height" type="tel" placeholder="输入你的身高">
 			</label>
 
 			<label class="item item-input item-select">
 			    <div class="input-label">
-			      Sex
+			      性别：
 			    </div>
 			    <select ng-model="sex">
-			      <option>Man</option>
-			      <option>Woman</option>
+			      <option>男</option>
+			      <option>女</option>
 			    </select>
 			  </label>
 

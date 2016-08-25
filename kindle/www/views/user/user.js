@@ -120,7 +120,7 @@ angular.module('App').controller('User', function($scope, userArray, $ionicActio
 		params.email = "test@qq.com";
 		params.uid = uid;
 		params.code = "kinlee";
-		params.sex = $("#set_sex").val() == "Man" ? 0 : 1;
+		params.sex = $("#set_sex").val() == "男" ? 0 : 1;
 
 		options.params = params;
 
@@ -163,7 +163,7 @@ angular.module('App').controller('User', function($scope, userArray, $ionicActio
 			
 			if(userArray.users[i]["id"] == id) {
 				
-				userArray.users[i]["sex"] = $("#set_sex").val() == "Man" ? 0 : 1;
+				userArray.users[i]["sex"] = $("#set_sex").val() == "男" ? 0 : 1;
 				//userArray.users[i]["age"]
 				userArray.users[i]["height"] = $("#set_height").val();
 				userArray.users[i]["litpic"] = $scope.litpic;

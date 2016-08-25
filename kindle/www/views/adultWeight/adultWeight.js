@@ -8,7 +8,7 @@ angular.module('App')
 
 		$scope.Resuly = '00.000';
 		$scope.BMI = '00';
-		$scope.isConnect = 'StartScan';
+		$scope.isConnect = '扫描蓝牙设备...';
 		$scope.address = false;
 
 		//保存
@@ -56,14 +56,14 @@ angular.module('App')
 			// 一个精心制作的自定义弹窗
 			var myPopup = $ionicPopup.show({
 				template: '<input type="tel" ng-model="data.his">',
-				title: 'The values of input record',
-				subTitle: 'Please use normal things',
+				title: '请输入你要记录的数值',
+				subTitle: '保存将上传到云端',
 				scope: $scope,
 				buttons: [{
-					text: 'Cancel',
+					text: '取消',
 
 				}, {
-					text: '<b>Save</b>',
+					text: '<b>保存</b>',
 					type: 'button-positive',
 					onTap: function(e) {
 
@@ -191,7 +191,7 @@ angular.module('App')
 				if(status["status"] == "connected") {
 
 					$scope.$apply(function() {
-						$scope.isConnect = "Connected";
+						$scope.isConnect = "连接成功";
 						$scope.ble_discover(address);
 						$scope.address = address;
 					});
@@ -201,7 +201,7 @@ angular.module('App')
 						//alert(JSON.stringify(status));
 						if(status["status"] == "closed") {
 							$scope.$apply(function() {
-								$scope.isConnect = "StartScan";
+								$scope.isConnect = "扫描蓝牙设备...";
 								$scope.ble_startScan();
 							});
 						}

@@ -38,7 +38,7 @@ angular.module('App').controller('TourCtrl', function($scope, $location, userArr
 				
 				$("#user_litpic").attr('src',$scope.userList[i]['litpic']);
 				$("#user_name").html($scope.userList[i]['name']);
-				$("#user_sex").html($scope.userList[i]['sex']==0?"Man":"Woman");
+				$("#user_sex").html($scope.userList[i]['sex']==0?"男":"女");
 				$("#user_height").html($scope.userList[i]['height']);
 				
 				

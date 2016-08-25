@@ -13,7 +13,7 @@ angular.module('App').controller('RegCtrl', function($scope, $ionicNavBarDelegat
 
 	$scope.height = '';
 
-	$scope.sex = 'Man';
+	$scope.sex = '男';
 
 	//注册事件
 	$scope.register = function() {
@@ -30,7 +30,7 @@ angular.module('App').controller('RegCtrl', function($scope, $ionicNavBarDelegat
 
 		if($scope.username.length && $scope.password.length && $scope.height.length) {
 			
-			if($scope.sex == "Man") {
+			if($scope.sex == "男") {
 				var sex = 0;
 			} else {
 				var sex = 1;

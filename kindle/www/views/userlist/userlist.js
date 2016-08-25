@@ -33,7 +33,7 @@ angular.module('App').controller('UserListCtrl', function($scope, $ionicNavBarDe
 
 				$("#user_litpic").attr('src', $scope.userArr[i]['litpic']);
 				$("#user_name").html($scope.userArr[i]['name']);
-				$("#user_sex").html($scope.userArr[i]['sex'] == 0 ? "Man" : "Woman");
+				$("#user_sex").html($scope.userArr[i]['sex'] == 0 ? "男" : "女");
 				$("#user_height").html($scope.userArr[i]['height']);
 				uid = window.localStorage.uid;
 				var confirmPopup = $ionicPopup.alert({

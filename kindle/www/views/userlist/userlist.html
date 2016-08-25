@@ -1,7 +1,7 @@
-<ion-view title="UserList">
+<ion-view title="用户组">
 	
 	<ion-nav-buttons side="right">
-		<a class="button button-clear" nav-clear ng-click="edit();">Edit</a>
+		<a class="button button-clear" nav-clear ng-click="edit();">编辑</a>
 	</ion-nav-buttons>
 	
 	<ion-content>
@@ -11,7 +11,7 @@
 				<ion-delete-button class="ion-minus-circled" ng-click="showConfirm({{item.id}},1);"></ion-delete-button>
 				<img src="{{item.litpic}}" />
     				<h2>{{item.name}}</h2>
-    				<p>{{item.sex}} | {{item.height}}cm</p>
+    				<p>{{item.sex==0?"男":"女"}} | {{item.height}}cm</p>
 			</ion-item>
 			
 		</ion-list>
