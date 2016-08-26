@@ -1,2 +1,1 @@
-#
-kindle_APP
+# kindle
