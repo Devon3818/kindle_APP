@@ -81,9 +81,17 @@ angular.module('App').controller('LogCtrl', function($scope, $ionicNavBarDelegat
 	//$ionicNavBarDelegate.back();
 	//头像下载
 	$scope.downloadPic = function(url, uid, userObj) {
-
+		
+		if($rootScope.systemName==1){
+			//ios
+			var targetPath = cordova.file.dataDirectory + "userpic_" + uid + ".jpg";
+		}else{
+			//android
+			var targetPath = cordova.file.externalApplicationStorageDirectory + "userpic_" + uid + ".jpg";
+		}
+		
 		var urls = "http://api.3eat.net/kinleeb" + url;
-		var targetPath = cordova.file.externalApplicationStorageDirectory + "userpic_" + uid + ".jpg";
+		
 		var trustHosts = true;
 		var options = {};
 
@@ -104,7 +112,7 @@ angular.module('App').controller('LogCtrl', function($scope, $ionicNavBarDelegat
 				$ionicLoading.hide();
 				//alert(JSON.stringify(err));
 			}, function(progress) {
-
+				
 			});
 
 	}

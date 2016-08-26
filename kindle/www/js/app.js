@@ -126,14 +126,14 @@ angular.module('App', ['ionic', 'ngCordova'])
 		//全局网络状态
 		$rootScope.isOnline = $cordovaNetwork.isOnline();
 		
-		//全局手机系统
-		$rootScope.systemName = $cordovaDevice.getPlatform();
+		//全局手机系统	0->ios;	1->android
+		$rootScope.systemName = $cordovaDevice.getPlatform()=="iOS"?1:0;
 		
 		//全局手机系统版本
 		$rootScope.systemVersion = $cordovaDevice.getVersion().split('.')[0];
 		
 		//遗留属性
-		//alert($rootScope.systemName);
+		alert($rootScope.systemName);
 		//alert($rootScope.systemVersion);
 		
 		if($rootScope.isOnline) {
@@ -141,7 +141,11 @@ angular.module('App', ['ionic', 'ngCordova'])
 			$cordovaAppVersion.getVersionNumber().then(function(version) {
 				var appVersion = version;
 				//alert("version:" + appVersion);
-
+				
+				if($rootScope.systemName==1){
+					return true;
+				}
+				
 				$http.get("http://www.devonhello.com/App")
 					.success(function(response) {
 
