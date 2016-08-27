@@ -37,8 +37,10 @@ Kindle 是一款蓝牙智能健康APP，配合某品牌智能硬件使用，综�
 
 //安装cordova 和 ionic 环境
 npm install -g cordova ionic
+
 //下载源码
 git clone git@github.com:kongdewen1994/kindle_APP.git
+
 //进入项目目录
 cd kindle_APP
 cd kindle
@@ -65,7 +67,8 @@ ionic run android
 ionic run ios
 
 
-如果ionic run报错，请将导入项目到 android studio 或 xcode 进行编译打包（编译打包之前执行 ionic prepare android / ionic prepare ios） 
+//如果ionic run报错，请将导入项目到 android studio 或 xcode 进行编译打包
+//（编译打包之前执行 ionic prepare android / ionic prepare ios） 
 ```
 
 开发者
