@@ -30,6 +30,44 @@ Kindle 是一款蓝牙智能健康APP，配合某品牌智能硬件使用，综�
 * Android系统
 * android 4.4+
 
+安装/配置
+------------
+```
+//确保电脑已经配置好android或ios的开发环境
+
+//安装cordova 和 ionic 环境
+npm install -g cordova ionic
+//下载源码
+git clone git@github.com:kongdewen1994/kindle_APP.git
+//进入项目目录
+cd kindle_APP
+cd kindle
+
+//搭建开发环境
+ionic platform add android
+ionic platform add ios
+
+//下载安装插件
+cordova plugin add cordova-plugin-bluetoothle
+cordova plugin add cordova-plugin-app-version
+cordova plugin add cordova-plugin-camera
+cordova plugin add cordova-plugin-compat
+cordova plugin add cordova-plugin-device
+cordova plugin add cordova-plugin-file
+cordova plugin add cordova-plugin-file-opener2
+cordova plugin add cordova-plugin-file-transfer
+cordova plugin add cordova-plugin-network-information
+cordova plugin add cordova-plugin-whitelist
+cordova plugin add cordova-plugin-x-toast
+
+//usb真机运行
+ionic run android
+ionic run ios
+
+
+如果ionic run报错，请将导入项目到 android studio 或 xcode 进行编译打包（编译打包之前执行 ionic prepare android / ionic prepare ios） 
+```
+
 开发者
 ----------
 - [Devon](https://github.com/kongdewen1994)
