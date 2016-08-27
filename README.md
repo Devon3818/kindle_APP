@@ -1,4 +1,4 @@
-
+![](https://github.com/kongdewen1994/kindle_APP/blob/master/docs/logo.jpg)
 
 =========================
 
