@@ -72,6 +72,10 @@ ionic run ios
 - QQ: 849996781
 - email: k849996781@vip.qq.com
 
+支付宝捐赠
+----------
+![](https://github.com/kongdewen1994/kindle_APP/blob/master/docs/zfb.jpg)
+
 
 额外
 ----------
