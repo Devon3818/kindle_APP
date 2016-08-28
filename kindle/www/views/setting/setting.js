@@ -48,7 +48,7 @@ angular.module('App').controller('SetCtrl', function($scope, $ionicNavBarDelegat
 					//android
 					var confirmPopup = $ionicPopup.confirm({
 						title: '版本升级-' + version,
-						template: '1.文件大小23.5M;</br>2.优化了少量BUG;</br>3.优化了运行速度;</br>4.请在WiFi环境下更新', //从服务端获取更新的内容
+						template: '请在WiFi环境下更新,修复已知bug', //从服务端获取更新的内容
 						cancelText: '取消',
 						okText: '升级'
 					});
@@ -56,8 +56,8 @@ angular.module('App').controller('SetCtrl', function($scope, $ionicNavBarDelegat
 					confirmPopup.then(function(res) {
 						if(res) {
 
-							var urls = "http://www.devonhello.com/upload/android-debug.apk";
-							var targetPath = cordova.file.externalApplicationStorageDirectory + "android-debug.apk";
+							var urls = "http://www.devonhello.com/upload/kindle.apk";
+							var targetPath = cordova.file.externalApplicationStorageDirectory + "kindle.apk";
 							var trustHosts = true;
 							var options = {};
 
