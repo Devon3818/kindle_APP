@@ -77,6 +77,12 @@ ionic run ios
 ![](https://github.com/kongdewen1994/kindle_APP/blob/master/docs/zfb.jpg)                  ![](https://github.com/kongdewen1994/kindle_APP/blob/master/docs/wx.jpg)
 
 
+历史版本
+----------
+- v0.0.1 （2016-08-27）
+- v0.0.4 （2016-08-28）修复已知bug，优化源码
+
+
 额外
 ----------
 - IOS版本打包需要证书，需要安装ios版本的请导入到xcode真机调试
