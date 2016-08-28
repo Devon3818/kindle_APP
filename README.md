@@ -79,5 +79,6 @@ ionic run ios
 
 额外
 ----------
-- IOS版本正在开发中
+- IOS版本打包需要证书，需要安装ios版本的请导入到xcode真机调试
+- Android 下载 ：http://www.devonhello.com/upload/kindle.apk
 
