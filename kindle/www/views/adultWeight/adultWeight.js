@@ -6,6 +6,9 @@ angular.module('App')
 		var uid = window.localStorage.uid,
 			uheight = window.localStorage.uheight;
 
+		$scope.service = $rootScope.systemName == 1 ? 'fff0' : '00001809-0000-1000-8000-00805f9b34fb';
+		$scope.characteristic = $rootScope.systemName == 1 ? 'fff4' : '00002a1c-0000-1000-8000-00805f9b34fb';
+
 		$scope.Resuly = '00.000';
 		$scope.BMI = '00';
 		$scope.isConnect = '扫描蓝牙设备...';
@@ -55,7 +58,7 @@ angular.module('App')
 
 			// 一个精心制作的自定义弹窗
 			var myPopup = $ionicPopup.show({
-				template: '<input type="tel" ng-model="data.his">',
+				template: '<input style="text-indent: 12px;" type="tel" ng-model="data.his">',
 				title: '请输入你要记录的数值',
 				subTitle: '保存将上传到云端',
 				scope: $scope,
@@ -70,10 +73,10 @@ angular.module('App')
 						if(!$scope.data.his) {
 							//don't allow the user to close unless he enters wifi password
 							$cordovaToast.showShortBottom('请输入要纪录数值').then(function(success) {
-									// success
-								}, function(error) {
-									// error
-								});
+								// success
+							}, function(error) {
+								// error
+							});
 							e.preventDefault();
 						} else {
 
@@ -251,8 +254,8 @@ angular.module('App')
 				//alert("subscribe：" + JSON.stringify(status));
 			}, {
 				"address": address,
-				"service": "0000fff0-0000-1000-8000-00805f9b34fb",
-				"characteristic": "0000fff4-0000-1000-8000-00805f9b34fb",
+				"service": $scope.service,
+				"characteristic": $scope.characteristic,
 			});
 		}
 
@@ -274,7 +277,15 @@ angular.module('App')
 
 		$scope.load = function() {
 
-			$scope.ble_hasPermission();
+			//系统判断，执行相应的函数
+			if($rootScope.systemName == 1) {
+				//ios
+				$scope.ble_isInitialized();
+
+			} else {
+				//android
+				$scope.ble_hasPermission();
+			}
 
 		};
 

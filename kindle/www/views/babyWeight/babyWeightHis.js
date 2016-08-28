@@ -9,7 +9,7 @@ angular.module('App')
 
 			// 一个精心制作的自定义弹窗
 			var myPopup = $ionicPopup.show({
-				template: '<input type="tel" ng-model="data.his">',
+				template: '<input style="text-indent: 12px;" type="tel" ng-model="data.his">',
 				title: '请输入你要记录的数值',
 				subTitle: '保存将上传到云端',
 				scope: $scope,

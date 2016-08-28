@@ -4,7 +4,7 @@
 		<a class="button button-clear" nav-clear ng-click="save();">保存</a>
 	</ion-nav-buttons>
 
-	<ion-content>
+	<ion-content scrollbar-y="false" overflow-scroll="false" has-bouncing="false">
 		<style>
 			header {
 				text-align: center;
@@ -59,22 +59,22 @@
 
 			<a class="item item-icon-left">
 				<i class="icon ion-ios7-speedometer"></i> 成人体重
-				<span class="item-note"> 55kg</span>
+				<span class="item-note"> {{ l_weighta }}kg</span>
 			</a>
 
 			<a class="item item-icon-left">
 				<i class="icon ion-ios7-time"></i> 婴儿体重
-				<span class="item-note"> 035.0kg</span>
+				<span class="item-note"> {{ l_weightb }}kg</span>
 			</a>
 
 			<a class="item item-icon-left">
 				<i class="icon ion-outlet"></i> 血压测量
-				<span class="item-note"> 正常</span>
+				<span class="item-note"> {{ blood }}</span>
 			</a>
 
 			<a class="item item-icon-left">
 				<i class="icon ion-thermometer"></i> 最近体温
-				<span class="item-note"> 32.4°C</span>
+				<span class="item-note"> {{ temp }}°C</span>
 			</a>
 
 		</div>

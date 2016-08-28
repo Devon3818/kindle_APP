@@ -9,7 +9,7 @@ angular.module('App')
 
 			// 一个精心制作的自定义弹窗
 			var myPopup = $ionicPopup.show({
-				template: '<input type="tel" placeholder="高压" ng-model="data.his1"><br/><input type="tel" placeholder="低压" ng-model="data.his2"><br/><input type="tel" placeholder="脉搏" ng-model="data.his3">',
+				template: '<input style="text-indent: 12px;" type="tel" placeholder="高压" ng-model="data.his1"><br/><input style="text-indent: 12px;" type="tel" placeholder="低压" ng-model="data.his2"><br/><input style="text-indent: 12px;" type="tel" placeholder="脉搏" ng-model="data.his3">',
 				title: '请输入你要记录的数值',
 				subTitle: '保存将上传到云端',
 				scope: $scope,
@@ -101,10 +101,7 @@ angular.module('App')
 					title: {
 						text: '高压'
 					},
-					//				subtitle: {
-					//					text: 'Source: <a href="http://thebulletin.metapress.com/content/c4120650912x74k7/fulltext.pdf">' +
-					//						'thebulletin.metapress.com</a>'
-					//				},
+					
 					xAxis: {
 						allowDecimals: false,
 						labels: {
@@ -158,10 +155,7 @@ angular.module('App')
 					title: {
 						text: '低压'
 					},
-					//				subtitle: {
-					//					text: 'Source: <a href="http://thebulletin.metapress.com/content/c4120650912x74k7/fulltext.pdf">' +
-					//						'thebulletin.metapress.com</a>'
-					//				},
+					
 					xAxis: {
 						allowDecimals: false,
 						labels: {
@@ -217,10 +211,7 @@ angular.module('App')
 					title: {
 						text: '脉搏'
 					},
-					//				subtitle: {
-					//					text: 'Source: <a href="http://thebulletin.metapress.com/content/c4120650912x74k7/fulltext.pdf">' +
-					//						'thebulletin.metapress.com</a>'
-					//				},
+					
 					xAxis: {
 						allowDecimals: false,
 						labels: {

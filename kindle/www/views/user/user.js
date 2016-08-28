@@ -1,4 +1,4 @@
-angular.module('App').controller('User', function($scope, userArray, $ionicActionSheet, $cordovaCamera, $cordovaFileTransfer, $rootScope, $ionicLoading, $cordovaToast) {
+angular.module('App').controller('User', function($scope, userArray, $ionicActionSheet, $cordovaCamera, $cordovaFileTransfer, $rootScope, $ionicLoading, $cordovaToast, userHistory) {
 
 	var uid = window.localStorage.uid;
 
@@ -12,16 +12,22 @@ angular.module('App').controller('User', function($scope, userArray, $ionicActio
 	//$("#user_litpic").attr('src', window.localStorage.ulitpic);
 
 	$scope.litpic = window.localStorage.ulitpic;
+	
+	$scope.l_weighta = userHistory.data[0][1][0]["_Acontent"].splice(-1)[0];
+	$scope.l_weightb = userHistory.data[1][1][0]["_Acontent"].splice(-1)[0];
+	$scope.blood = userHistory.data[3][1][0]["_Acontent"].splice(-1)[0] +' / '+ userHistory.data[3][1][0]["_Bcontent"].splice(-1)[0] +' / '+ userHistory.data[3][1][0]["_Ccontent"].splice(-1)[0];
+	$scope.temp = userHistory.data[2][1][0]["_Acontent"].splice(-1)[0];
+	
 
 	//资料更改状态变化标示
 	$scope.change = function() {
 		$scope.edit = true;
-		
+
 	};
 
 	//提交信息，更新信息资料
 	$scope.save = function() {
-		
+
 		if(!$rootScope.isOnline) {
 			//无网络状态
 			$cordovaToast.showShortBottom('无可用网络').then(function(success) {
@@ -37,7 +43,7 @@ angular.module('App').controller('User', function($scope, userArray, $ionicActio
 			});
 			$scope.upload($scope.litpic);
 		} else {
-			
+
 			$cordovaToast.showShortBottom('没有资料更改').then(function(success) {
 				// success
 			}, function(error) {
@@ -158,19 +164,19 @@ angular.module('App').controller('User', function($scope, userArray, $ionicActio
 	$scope.upArr = function(id) {
 
 		var len = userArray.users.length;
-		
+
 		for(var i = 0; i < len; i++) {
-			
+
 			if(userArray.users[i]["id"] == id) {
-				
+
 				userArray.users[i]["sex"] = $("#set_sex").val() == "男" ? 0 : 1;
 				//userArray.users[i]["age"]
 				userArray.users[i]["height"] = $("#set_height").val();
 				userArray.users[i]["litpic"] = $scope.litpic;
 				$("#user_sex").html($("#set_sex").val());
 				$("#user_height").html(userArray.users[i]['height']);
+				$("#user_litpic").attr('src',$scope.litpic);
 				window.localStorage.uheight = userArray.users[i]["height"];
-				
 
 				window.localStorage.usex = userArray.users[i]["sex"];
 				window.localStorage.ulitpic = $scope.litpic;
@@ -183,8 +189,16 @@ angular.module('App').controller('User', function($scope, userArray, $ionicActio
 	}
 
 	$scope.downloadPic = function(litpic, id) {
+
+		if($rootScope.systemName == 1) {
+			//ios
+			var targetPath = cordova.file.dataDirectory + "userpic_" + id + ".jpg";
+		} else {
+			//android
+			var targetPath = cordova.file.externalApplicationStorageDirectory + "userpic_" + id + ".jpg";
+		}
+
 		var urls = "http://api.3eat.net/kinleeb" + litpic;
-		var targetPath = cordova.file.externalApplicationStorageDirectory + "userpic_" + id + ".jpg";
 		var trustHosts = true;
 		var options = {};
 

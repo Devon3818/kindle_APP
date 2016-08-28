@@ -29,6 +29,7 @@ angular.module('App').controller('HomeCtrl', function($scope, $cordovaFile, $htt
 	}
 
 	$scope.ble_isInitialized = function() {
+
 		bluetoothle.isInitialized(function(status) {
 
 			//alert(status);
@@ -45,10 +46,19 @@ angular.module('App').controller('HomeCtrl', function($scope, $cordovaFile, $htt
 
 	//初始化蓝牙
 	$scope.ble_initialize = function() {
+
 		bluetoothle.initialize(function(status) {
+			//alert(JSON.stringify(status));
 			if(status["status"] == "enabled") {
 
-				$scope.ble_isEnabled();
+				//系统判断，执行相应的函数
+				if($rootScope.systemName == 1) {
+					//ios
+					//bluetoothle.stopScan(function(status) {}, function(status) {});
+				} else {
+					//android
+					$scope.ble_isEnabled();
+				}
 
 			} else {
 
@@ -101,7 +111,15 @@ angular.module('App').controller('HomeCtrl', function($scope, $cordovaFile, $htt
 		//alert("$destroy");
 	});
 
-	$scope.ble_hasPermission();
+	//系统判断，执行相应的函数
+	if($rootScope.systemName == 1) {
+		//ios
+		$scope.ble_isInitialized();
+
+	} else {
+		//android
+		$scope.ble_hasPermission();
+	}
 
 	//文件写入
 	$scope.writeF = function() {
@@ -137,7 +155,7 @@ angular.module('App').controller('HomeCtrl', function($scope, $cordovaFile, $htt
 				$cordovaFile.writeFile(cordova.file.dataDirectory, "data_" + $scope.uid + ".txt", content, true)
 					.then(function(success) {
 						userHistory.data = JSON.parse(content);
-						
+
 					}, function(error) {
 						// error
 						alert("error:" + error);

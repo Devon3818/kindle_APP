@@ -6,6 +6,11 @@ angular.module('App')
 		$scope.Resuly_MB = '000';
 		$scope.isConnect = '扫描蓝牙设备...';
 		$scope.address = false;
+		
+		$scope.service = $rootScope.systemName == 1 ? 'fff0' : '00001809-0000-1000-8000-00805f9b34fb';
+		$scope.characteristic = $rootScope.systemName == 1 ? 'fff4' : '00002a1c-0000-1000-8000-00805f9b34fb';
+
+		
 
 		var uid = window.localStorage.uid;
 
@@ -54,7 +59,7 @@ angular.module('App')
 
 			// 一个精心制作的自定义弹窗
 			var myPopup = $ionicPopup.show({
-				template: '<input type="tel" placeholder="高压" ng-model="data.his1"><br/><input type="tel" placeholder="低压" ng-model="data.his2"><br/><input type="tel" placeholder="脉搏" ng-model="data.his3">',
+				template: '<input style="text-indent: 12px;" type="tel" placeholder="高压" ng-model="data.his1"><br/><input style="text-indent: 12px;" type="tel" placeholder="低压" ng-model="data.his2"><br/><input style="text-indent: 12px;" type="tel" placeholder="脉搏" ng-model="data.his3">',
 				title: '请输入你要记录的数值',
 				subTitle: '保存将上传到云端',
 				scope: $scope,
@@ -69,10 +74,10 @@ angular.module('App')
 						if(!$scope.data.his1 && !$scope.data.his2 && !$scope.data.his3) {
 							//don't allow the user to close unless he enters wifi password
 							$cordovaToast.showShortBottom('请输入要纪录数值').then(function(success) {
-									// success
-								}, function(error) {
-									// error
-								});
+								// success
+							}, function(error) {
+								// error
+							});
 							e.preventDefault();
 						} else {
 
@@ -249,8 +254,8 @@ angular.module('App')
 				//alert("subscribe：" + JSON.stringify(status));
 			}, {
 				"address": address,
-				"service": "0000fff0-0000-1000-8000-00805f9b34fb",
-				"characteristic": "0000fff4-0000-1000-8000-00805f9b34fb",
+				"service": $scope.service,
+				"characteristic": $scope.characteristic,
 			});
 		}
 
@@ -272,7 +277,15 @@ angular.module('App')
 
 		$scope.load = function() {
 
-			$scope.ble_hasPermission();
+			//系统判断，执行相应的函数
+			if($rootScope.systemName == 1) {
+				//ios
+				$scope.ble_isInitialized();
+
+			} else {
+				//android
+				$scope.ble_hasPermission();
+			}
 
 		};
 
@@ -311,14 +324,14 @@ angular.module('App')
 					$scope.Resuly_DY = basesD;
 				});
 
-				//				var basesA = bases16.substr(-4, 2),
-				//					basesB = bases.fromBase(basesA, '16'),
-				//					basesC = bases.toBase(basesB, 10);
+				var basesA = bases16.substr(-4, 2),
+					basesB = bases.fromBase(basesA, '16'),
+					basesC = bases.toBase(basesB, 10);
 
 				//设置脉搏
-				//				$scope.$apply(function() {
-				//					$scope.Resuly_MB = basesC;
-				//				});
+				$scope.$apply(function() {
+					$scope.Resuly_MB = basesC;
+				});
 
 			} else {
 

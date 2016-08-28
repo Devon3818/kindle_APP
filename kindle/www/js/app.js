@@ -120,7 +120,7 @@ angular.module('App', ['ionic', 'ngCordova'])
 	$urlRouterProvider.otherwise('/Home');
 })
 
-.run(function($ionicPlatform, $location, $cordovaAppVersion, $ionicPopup, $ionicLoading, $timeout, $cordovaFileTransfer, $cordovaFileOpener2, $http, $cordovaNetwork, $rootScope, $cordovaToast, $cordovaDevice) {
+.run(function($ionicSideMenuDelegate, $ionicPlatform, $location, $cordovaAppVersion, $ionicPopup, $ionicLoading, $timeout, $cordovaFileTransfer, $cordovaFileOpener2, $http, $cordovaNetwork, $rootScope, $cordovaToast, $cordovaDevice) {
 	$ionicPlatform.ready(function() {
 
 		//全局网络状态
@@ -133,7 +133,7 @@ angular.module('App', ['ionic', 'ngCordova'])
 		$rootScope.systemVersion = $cordovaDevice.getVersion().split('.')[0];
 		
 		//遗留属性
-		alert($rootScope.systemName);
+		//alert($rootScope.systemName);
 		//alert($rootScope.systemVersion);
 		
 		if($rootScope.isOnline) {
@@ -245,16 +245,18 @@ angular.module('App', ['ionic', 'ngCordova'])
 
 	});
 
-	var firstVisit = localStorage.getItem('firstVisit');
-	if(!firstVisit) {
-		$location.url('/tour');
-	}
+	$ionicSideMenuDelegate.canDragContent(false);
+	$location.url('/tour');
+	
 })
 
 .controller('NavbarCtrl', function($scope, $ionicSideMenuDelegate) {
-
+	
+	$ionicSideMenuDelegate.canDragContent(false);
+	
 	$scope.openMenu = function() {
-		$ionicSideMenuDelegate.toggleLeft();
+		
+		//$ionicSideMenuDelegate.toggleLeft();
 
 	};
 });

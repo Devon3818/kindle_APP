@@ -2,7 +2,11 @@ angular.module('App').controller('SetCtrl', function($scope, $ionicNavBarDelegat
 
 	$scope.pushNotification = true;
 	$scope.version = "0.0.0";
-
+	
+	$cordovaAppVersion.getVersionNumber().then(function(version) {
+		$scope.version = version;
+	});
+	
 	$scope.update = function() {
 
 		if(!$rootScope.isOnline) {
@@ -23,10 +27,25 @@ angular.module('App').controller('SetCtrl', function($scope, $ionicNavBarDelegat
 				.success(function(response) {
 
 					if(appVersion == response) {
-						alert("已是最新版本");
+						
+						$ionicPopup.alert({
+					       title: '系统提示',
+					       template: '已是最新版本'
+					     });
 						return true;
 					}
-
+					
+					//系统判断，执行相应的函数
+					if($rootScope.systemName == 1) {
+						//ios
+						$ionicPopup.alert({
+					       title: '系统提示',
+					       template: '有新版本，请到 App Store 下载最新版本'
+					     });
+						return true;
+					}
+					
+					//android
 					var confirmPopup = $ionicPopup.confirm({
 						title: '版本升级-' + version,
 						template: '1.文件大小23.5M;</br>2.优化了少量BUG;</br>3.优化了运行速度;</br>4.请在WiFi环境下更新', //从服务端获取更新的内容
