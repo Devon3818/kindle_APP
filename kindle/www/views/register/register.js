@@ -40,7 +40,7 @@ angular.module('App').controller('RegCtrl', function($scope, $ionicNavBarDelegat
 				template: 'Loading...'
 			});
 
-			$http.get("http://api.3eat.net/kinleeb/user_reg.php?code=kinlee&height=" + $scope.height + "&age=20&sex=" + sex + "&uname=" + $scope.username + "&pwd=" + $scope.password)
+			$http.get("http://xxx" + $scope.height + "&age=20&sex=" + sex + "&uname=" + $scope.username + "&pwd=" + $scope.password)
 				.success(function(response) {
 					//alert(response);
 					//alert(JSON.stringify(response));
