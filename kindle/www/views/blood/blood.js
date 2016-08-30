@@ -31,7 +31,7 @@ angular.module('App')
 				template: 'Loading...'
 			});
 
-			$http.get("http://api.3eat.net/kinleeb/data_xueya_post.php?code=kinlee&uid=" + uid + "&gaoya=" + $scope.Resuly_GY + "&maibo=" + $scope.Resuly_MB + "&diya=" + $scope.Resuly_DY)
+			$http.get("http://xxx/data_xueya_post.php?code=kinlee&uid=" + uid + "&gaoya=" + $scope.Resuly_GY + "&maibo=" + $scope.Resuly_MB + "&diya=" + $scope.Resuly_DY)
 				.success(function(response) {
 
 					if(response[0]["_postok"] == 1) {

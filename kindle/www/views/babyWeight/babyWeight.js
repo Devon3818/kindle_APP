@@ -27,7 +27,7 @@ angular.module('App')
 				template: 'Loading...'
 			});
 
-			$http.get("http://api.3eat.net/kinleeb/data_chengbaby_post.php?code=kinlee&uid=" + uid + "&weight=" + $scope.Resuly)
+			$http.get("http://xxx/data_chengbaby_post.php?code=xxx&uid=" + uid + "&weight=" + $scope.Resuly)
 				.success(function(response) {
 
 					if(response[0]["_postok"] == 1) {
@@ -148,7 +148,7 @@ angular.module('App')
 				//alert(JSON.stringify(status));
 				if(status["status"] == "scanResult") {
 
-					if(status["name"] == "Kinlee-scales") {
+					if(status["name"] == "xxx-scales") {
 						var address = status["address"];
 						bluetoothle.stopScan(function(status) {
 							//alert(JSON.stringify(status));

@@ -45,7 +45,7 @@ angular.module('App')
 								template: 'Loading...'
 							});
 
-							$http.get("http://api.3eat.net/kinleeb/data_tiwen_post.php?code=kinlee&uid=" + uid + "&dushu=" + $scope.data.his)
+							$http.get("http://xxx/data_tiwen_post.php?code=kinlee&uid=" + uid + "&dushu=" + $scope.data.his)
 								.success(function(response) {
 
 									if(response[0]["_postok"] == 1) {

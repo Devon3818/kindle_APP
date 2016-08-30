@@ -31,7 +31,7 @@ angular.module('App')
 				template: 'Loading...'
 			});
 
-			$http.get("http://api.3eat.net/kinleeb/data_cheng_post.php?code=kinlee&bmi=" + $scope.BMI + "&uid=" + uid + "&weight=" + $scope.Resuly)
+			$http.get("http://xxx/data_cheng_post.php?code=xxx&bmi=" + $scope.BMI + "&uid=" + uid + "&weight=" + $scope.Resuly)
 				.success(function(response) {
 
 					if(response[0]["_postok"] == 1) {

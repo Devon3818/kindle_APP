@@ -48,7 +48,7 @@ angular.module('App')
 
 							var BMI = parseInt($scope.data.his / (uheight * uheight) * 10000);
 
-							$http.get("http://api.3eat.net/kinleeb/data_cheng_post.php?code=kinlee&bmi=" + BMI + "&uid=" + uid + "&weight=" + $scope.data.his)
+							$http.get("http://xxx/data_cheng_post.php?code=xxx&bmi=" + BMI + "&uid=" + uid + "&weight=" + $scope.data.his)
 								.success(function(response) {
 
 									if(response[0]["_postok"] == 1) {

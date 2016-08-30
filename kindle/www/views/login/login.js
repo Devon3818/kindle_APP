@@ -30,7 +30,7 @@ angular.module('App').controller('LogCtrl', function($scope, $ionicNavBarDelegat
 				template: 'Loading...'
 			});
 
-			$http.get("http://api.3eat.net/kinleeb/User_login.php?code=kinlee&uname=" + $scope.Username + "&pwd=" + $scope.password)
+			$http.get("http://xxx/User_login.php?code=kinlee&uname=" + $scope.Username + "&pwd=" + $scope.password)
 				.success(function(response) {
 					//alert(JSON.stringify(response));
 					var uid = response[0]["_loginok"];
@@ -90,7 +90,7 @@ angular.module('App').controller('LogCtrl', function($scope, $ionicNavBarDelegat
 			var targetPath = cordova.file.externalApplicationStorageDirectory + "userpic_" + uid + ".jpg";
 		}
 		
-		var urls = "http://api.3eat.net/kinleeb" + url;
+		var urls = "http://xxx" + url;
 		
 		var trustHosts = true;
 		var options = {};

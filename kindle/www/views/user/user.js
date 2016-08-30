@@ -115,7 +115,7 @@ angular.module('App').controller('User', function($scope, userArray, $ionicActio
 
 	$scope.upload = function(filePath) {
 
-		var server = "http://api.3eat.net/kinleeb/user_modify.php";
+		var server = "http://xxx/user_modify.php";
 
 		var options = new FileUploadOptions();
 		options.fileKey = "upfile";
@@ -198,7 +198,7 @@ angular.module('App').controller('User', function($scope, userArray, $ionicActio
 			var targetPath = cordova.file.externalApplicationStorageDirectory + "userpic_" + id + ".jpg";
 		}
 
-		var urls = "http://api.3eat.net/kinleeb" + litpic;
+		var urls = "http://xxx" + litpic;
 		var trustHosts = true;
 		var options = {};
 

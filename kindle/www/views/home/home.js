@@ -146,7 +146,7 @@ angular.module('App').controller('HomeCtrl', function($scope, $cordovaFile, $htt
 			return true;
 		}
 
-		$http.get("http://api.3eat.net/kinleeb/all_his.php?code=kinlee&uid=" + $scope.uid)
+		$http.get("http://xxx/all_his.php?code=kinlee&uid=" + $scope.uid)
 			.success(function(response) {
 				//$scope.names = response.records;
 				var content = JSON.stringify(response);
