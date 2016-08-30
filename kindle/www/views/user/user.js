@@ -125,7 +125,7 @@ angular.module('App').controller('User', function($scope, userArray, $ionicActio
 		params.height = $("#set_height").val();
 		params.email = "test@qq.com";
 		params.uid = uid;
-		params.code = "kinlee";
+		params.code = "xxx";
 		params.sex = $("#set_sex").val() == "男" ? 0 : 1;
 
 		options.params = params;

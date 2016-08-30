@@ -27,7 +27,7 @@ angular.module('App')
 				template: 'Loading...'
 			});
 
-			$http.get("http://xxx/data_tiwen_post.php?code=kinlee&uid=" + uid + "&dushu=" + $scope.Resuly)
+			$http.get("http://xxx/data_tiwen_post.php?code=xxx&uid=" + uid + "&dushu=" + $scope.Resuly)
 				.success(function(response) {
 
 					if(response[0]["_postok"] == 1) {
