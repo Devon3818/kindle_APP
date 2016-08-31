@@ -87,4 +87,6 @@ ionic run ios
 ----------
 - IOS版本打包需要证书，需要安装ios版本的请导入到xcode真机调试
 - Android 下载 ：http://www.devonhello.com/upload/kindle.apk
+- 测试帐号：kindle
+- 帐号密码：123456
 
