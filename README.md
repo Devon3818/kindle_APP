@@ -1,11 +1,11 @@
-![](https://github.com/kongdewen1994/kindle_APP/blob/master/docs/logo.jpg)
+![](https://github.com/Devon3818/kindle_APP/blob/master/docs/logo.jpg)
 
 =========================
 
 Kindle 是一款蓝牙智能健康APP，配合某品牌智能硬件使用，综合于人体称重，新生婴儿称重，人体体脂成份，血压和体温为一体数据分析软件，为日常健康与保健，助您拥有健康的身体，可查看各项的历史记录，让您随时随地了解你及你家人的健康状态。
 
 
-![](https://github.com/kongdewen1994/kindle_APP/blob/master/docs/Screen.jpg)
+![](https://github.com/Devon3818/kindle_APP/blob/master/docs/Screen.jpg)
 =========================
 
 版权声明
@@ -34,7 +34,7 @@ Kindle 是一款蓝牙智能健康APP，配合某品牌智能硬件使用，综�
 npm install -g cordova ionic
 
 //下载源码
-git clone git@github.com:kongdewen1994/kindle_APP.git
+git clone git@github.com:Devon3818/kindle_APP.git
 
 //进入项目目录
 cd kindle_APP
@@ -68,13 +68,13 @@ ionic run ios
 
 开发者
 ----------
-- [Devon](https://github.com/kongdewen1994)
+- [Devon](https://github.com/Devon3818)
 - QQ: 849996781
 - email: k849996781@vip.qq.com
 
 支付宝捐赠(左) / 微信捐赠(右)
 ----------
-![](https://github.com/kongdewen1994/kindle_APP/blob/master/docs/zfb.jpg)                  ![](https://github.com/kongdewen1994/kindle_APP/blob/master/docs/wx.jpg)
+![](https://github.com/Devon3818/kindle_APP/blob/master/docs/zfb.jpg)                  ![](https://github.com/Devon3818/kindle_APP/blob/master/docs/wx.jpg)
 
 
 历史版本
